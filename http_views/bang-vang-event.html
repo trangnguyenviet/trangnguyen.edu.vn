@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="row">
+				<div class="col-ldh-9">
+					<ul class="breadcrumbs">
+						<li><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+						<li><a href="/su-kien/">Sự kiện</a></li>
+						<li><a href="/su-kien/bang-vang/">Bảng vàng</a></li>
+						{{#eventname}}
+						<li>{{.}}</li>
+						{{/eventname}}
+					</ul>
+					<div class="bg-BXH">
+						<div class="title_table">{{page_title}}</div>
+						<form action="" style="padding:10px 0">
+							<label>Lớp: &nbsp;</label>
+							<select class="selectBox-chon" id="ddl_class">
+								<option value="1">Lớp 1</option>
+								<option value="2">Lớp 2</option>
+								<option value="3">Lớp 3</option>
+								<option value="4">Lớp 4</option>
+								<option value="5">Lớp 5</option>
+								<option value="6">Lớp 6</option>
+							</select>
+						</form>
+						<table id="div_content" class="table-bv" border="0" cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th width="6%">STT</th>
+									<th width="10%">ID</th>
+									<th width="29%">Họ và tên</th>
+									<!--<th width="10%">Ngày sinh</th>-->
+									<th width="10%">Lớp</th>
+									<th width="15%">Điểm</th>
+									<th width="15%">TGian</th>
+									<th width="15%">Chi tiết</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<!--<td colspan="8">loading...</td>-->
+									<td colspan="8">loading...</td>
+								</tr>
+							</tbody>
+						</table>
+						<div id="div_page"></div>
+						<script type="text/javascript">
+							$(function(){
+								$('#ddl_class').change(function(){
+									// var querystring = Urllib.GetQueryString();
+									var lop = $(this).val();
+									var url = '?lop=' + lop;
+									window.history.pushState({lop:lop},'',url);
+									loadData(true);
+								});
+								var querystring = Urllib.GetQueryString();
+								var class_id = util.parseInt(querystring['lop']);
+								if(class_id) $('#ddl_class').val(class_id);
+								// else util.randomSelect('#ddl_class');
+								loadData();
+							});
+							function loadData(bScrool){
+								$.ajax({
+									url: window.location.href,
+									type: 'POST',
+									dataType: "json",
+									success:function(data){
+										if(data.error==0){
+											if(data.content){
+												// var arr = SortArray(data.content,'count',false);
+												var arr = data.content;
+												var page_index = data.page_index;
+												var page_size = data.page_size;
+												var total_rows = data.total_rows;
+												var start_index = page_index*page_size;
+												var html='';
+												for(var i=0;i<arr.length;i++){
+													var item = arr[i];
+													html+='<tr>';
+													html+='<td>'+(i+start_index+1)+'</td>';
+													html+='<td>'+item.user_id+'</td>';
+													html+='<td><a href="/tai-khoan/'+item.user_id+'">'+item.fullname+'</a></td>';
+													//html+='<td>'+(item.birthday?util.dateShow(new Date(item.birthday)):'')+'</td>';
+													html+='<td>'+item.class_id+'</td>';
+													html+='<td>'+(item.score?item.score:'&nbsp;')+'</td>';
+													html+='<td>'+(item.time?util.Second2Minute(item.time):'&nbsp;')+'</td>';
+													//html+='<td>'+(item.current_round_4?item.current_round_4:'&nbsp;')+'</td>';
+													html+='<td><a href="#">Chi tiết</a></td>';
+												}
+												$('#div_content tbody').html(html);
+												$('#div_page').html(util.GenPageJs(total_rows,page_size,page_index,'page pageA pageA06','current',5,'GoPage'));
+												if(bScrool) goToByScroll('#div_content');
+											}
+										}
+									}
+								});
+							}
+							function GoPage(page_index){
+								var querystring = Urllib.GetQueryString();
+								var lop = querystring['lop'];
+								var url = '?trang=' + page_index;
+								if(lop) url+='&lop=' + lop;
+								window.history.pushState({lop:lop,trang:page_index},'',url);
+								loadData(true);
+							}
+						</script>
+					</div>
+				</div>
+				<div class="col-ldh-3 right-sidebar">
+					{{> ./includes/right-bang-vang}}
+					{{> ./includes/ads-auto}}
+				</div>
+			</div>
+			{{> ./includes/ads-vertical-content}}
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/loading}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+	{{#error_message}}
+		{{#error}}
+			<script>window.error_code = {{error}};</script>
+		{{/error}}
+		<script>
+			$(function(){
+				if(window.error_code && window.error_code == 1111){
+					var bottons = [{
+						caption:'Xem hướng dẫn',
+						callback:function(){
+							window.location.href='/tin-giao-duc/huong-dan-xac-nhan-tai-khoan.1121';
+						}
+					},{
+						caption:'Để lúc khác',
+						callback: function(){
+							window.history.go(-1);
+						}
+					}];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else if(window.error_code && window.error_code == 8888){
+					var bottons = [
+						{
+							caption:'Nộp học phí',
+							callback:function(){
+								window.location.href='/nop-hoc-phi';
+							}
+						},
+						{
+							caption:'Để lúc khác'
+						}
+					];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else if(window.error_code && window.error_code == 9996){
+					var bottons = [
+						{
+							caption:'Nhập mã',
+							callback:function(){
+								window.location.href='/ma-thi-truong';
+							}
+						}
+					];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else if(window.error_code && window.error_code == 9997){
+					var bottons = [
+						{
+							caption:'Nhập mã',
+							callback:function(){
+								window.location.href='/ma-thi-huyen';
+							}
+						}
+					];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else if(window.error_code && window.error_code == 9998){
+					var bottons = [
+						{
+							caption:'Nhập mã',
+							callback:function(){
+								window.location.href='/ma-thi-tinh';
+							}
+						}
+					];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else if(window.error_code && window.error_code == 9999){
+					var bottons = [
+						{
+							caption:'Nhập mã',
+							callback:function(){
+								window.location.href='/ma-thi-dinh';
+							}
+						}
+					];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else TN_POPUP.show('{{{error_message}}}');
+			});
+		</script>
+	{{/error_message}}
+	{{^error_message}}
+		<meta http-equiv="X-UA-Compatible" content="chrome=1, IE=9"/>
+		<meta name="format-detection" content="telephone=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="robots" content="noindex,nofollow"/>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+		<meta name="apple-mobile-web-app-title" content="Phaser App"/>
+		<meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui"/>
+		<link rel="stylesheet" href="https://static.trangnguyen.edu.vn/game/TVUB/css/stylesheet.css" type="text/css" charset="utf-8"/>
+		<script src="https://static.trangnguyen.edu.vn/game/libs/phaser.min.js"></script>
+	{{/error_message}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="box-thitt">
+				<div id="info-section" class="tn-user-panel tn-inline-info">
+				{{#user}}
+					<script>var userInfo = {username: '{{user.name}}',uid: {{user._id}},avatar: '/avatar/{{user._id}}'};</script>
+					<p><span>Xin chào:&nbsp;</span><a href="#"><img src="https://static.trangnguyen.edu.vn/avatar/no_avatar.jpg"> <span class="tn-text-strong">{{name}}</span></a></p>
+					<p><span>ID:&nbsp;</span><span class="tn-text-strong">{{_id}}</span></p>
+					<p><span>Lớp:&nbsp;</span><span class="tn-text-strong">{{class_id}}</span></p>
+				{{/user}}
+				</div>
+				<div style="width: 100%; height: 100%; text-align:center" id="main-section">
+					<div id="tn-game" class="tn-block"></div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				{{> ./includes/ads-game}}
+			</div>
+			{{^error_message}}
+				<script src="https://static.trangnguyen.edu.vn/game/core/core.js"></script>
+				<script src="https://static.trangnguyen.edu.vn/game/core/utils.js"></script>
+				{{#socket_exam}}
+					<script>window.socket_exam='{{socket_exam}}'; $(function(){goToByScroll('#info-section');});</script>
+				{{/socket_exam}}
+				{{^socket_exam}}
+					<script>$(function(){goToByScroll('#info-section');});</script>
+				{{/socket_exam}}
+				{{{JsFile}}}
+			{{/error_message}}
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

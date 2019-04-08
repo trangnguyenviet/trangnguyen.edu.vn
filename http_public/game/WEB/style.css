@@ -1,0 +1,21 @@
+.cauhoi input {
+	border: none;
+	background: none;
+	outline: hidden;
+	font: bold 14px Arial, Helvetica, sans-serif;
+	color: #000;
+	width: 80px;
+	height: 20px;
+	padding: 0 5px;
+	text-align: center;
+	border-bottom: dotted 1px #09F;
+	/*color: rgb(94, 0, 255);*/
+	font-size: 14px;
+}
+
+#div_questions img{
+	height: 4em;
+	margin-bottom: -.6em;
+	margin-left: .4em;
+	margin-right: .4em;
+}

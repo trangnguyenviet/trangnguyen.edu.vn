@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+	{{#error_message}}
+		{{#error}}
+			<script>window.error_code = {{error}};</script>
+		{{/error}}
+		<script>
+			$(function(){
+				if(window.error_code && window.error_code == 1111){
+					var bottons = [{
+						caption:'Xem hướng dẫn',
+						callback:function(){
+							window.location.href='/tin-giao-duc/huong-dan-xac-nhan-tai-khoan.1121';
+						}
+					},{
+						caption:'Để lúc khác',
+						callback: function(){
+							window.history.go(-1);
+						}
+					}];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else if(window.error_code && window.error_code == 8888){
+					var bottons = [{
+						caption:'Nộp học phí',
+						callback:function(){
+							window.location.href='/nop-hoc-phi';
+						}
+					},{
+						caption:'Để lúc khác'
+					}];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else if(window.error_code && window.error_code == 9996){
+					var bottons = [
+						{
+							caption:'Nhập mã',
+							callback:function(){
+								window.location.href='/ma-thi-truong';
+							}
+						}
+					];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else if(window.error_code && window.error_code == 9997){
+					var bottons = [
+						{
+							caption:'Nhập mã',
+							callback:function(){
+								window.location.href='/ma-thi-huyen';
+							}
+						}
+					];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else if(window.error_code && window.error_code == 9998){
+					var bottons = [
+						{
+							caption:'Nhập mã',
+							callback:function(){
+								window.location.href='/ma-thi-tinh';
+							}
+						}
+					];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else if(window.error_code && window.error_code == 9999){
+					var bottons = [
+						{
+							caption:'Nhập mã',
+							callback:function(){
+								window.location.href='/ma-thi-dinh';
+							}
+						}
+					];
+					TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+				}
+				else TN_POPUP.show('{{{error_message}}}');
+			});
+		</script>
+	{{/error_message}}
+	{{^error_message}}
+		<!--<script src="/socket.io/socket.io.js"></script>-->
+		<script src="https://static.trangnguyen.edu.vn/socket.io/socket.io.js"></script>
+		{{#is_free}}
+		<script src="https://static.trangnguyen.edu.vn/game/WEB/play.min.js?v=1.3.2"></script>
+		<!--<script src="/game/WEB/play.3.js?v=1.0.0"></script>-->
+		{{/is_free}}
+		{{^is_free}}
+		<script src="https://static.trangnguyen.edu.vn/game/WEB/play.min.js?v=1.3.2"></script>
+		{{/is_free}}
+	{{/error_message}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="box-thitt">
+				<div id="info-section" class="tn-user-panel tn-inline-info">
+				{{#user}}
+					<script>var userInfo = {username: '{{user.name}}',uid: {{user._id}},avatar: '/avatar/{{user._id}}'};</script>
+					<p><span>Xin chào:&nbsp;</span><a href="#"><img src="/avatar/no_avatar.jpg"> <span class="tn-text-strong">{{name}}</span></a></p>
+					<p><span>ID:&nbsp;</span><span class="tn-text-strong">{{_id}}</span></p>
+					<p><span>Lớp:&nbsp;</span><span class="tn-text-strong">{{class_id}}</span></p>
+				{{/user}}
+				</div>
+				<section id="main-section">
+					<div class="tn-block-ct tn-block-test">
+						<div class="tn-block-content">
+							<div class="tn-block-title"><span class="tn-icon-title"></span><a href="#"><i class="fa fa-file-word-o"></i> Bài thi</a></div>
+							<div id="tn-count-down"><i class="fa fa-clock-o"></i> 00:00</div>
+							<div class="tn-test-content">
+								<p id="div_title" class="tn-text-bold">Em hãy đọc kỹ câu hỏi và ĐIỀN vào chỗ trống hoặc CHỌN 1 trong 4 đáp án cho sẵn. Nếu CHỌN đáp án em hãy click chuột vào ô tròn trước đáp án. Nếu ĐIỀN vào chỗ trống, em hãy ĐIỀN chữ cái, từ, số, ký hiệu toán học, hoặc phép tính. Chú ý, phân số em ĐIỀN theo dạng a/b.Nếu là số thập phân em dùng dấu chấm, ví dụ 1.25 và sau khi làm xong 10 câu hỏi em ấn nút nộp bài.</p>
+								<div id="div_questions">
+								<div style="text-align: center;font-size: 25px;font-weight: 600;color: #FF3F00;">Đang kết nối với máy chủ...</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{{^error_message}}
+					<div class="center" style="margin:20px 0">
+						<button id="bt_endgame" class="btn-red pd-red">NỘP BÀI</button>
+					</div>
+					{{/error_message}}
+				</section>
+				<div class="col-md-12">
+					{{> ./includes/ads-game}}
+				</div>
+			</div>
+
+			{{^error_message}}
+				{{#socket_exam}}
+					<script>window.socket_exam='{{socket_exam}}'; $(function(){goToByScroll('#info-section');});</script>
+				{{/socket_exam}}
+				{{^socket_exam}}
+					<script>$(function(){goToByScroll('#info-section');});</script>
+				{{/socket_exam}}
+			{{/error_message}}
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

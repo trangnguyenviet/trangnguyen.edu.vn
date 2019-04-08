@@ -1,0 +1,32 @@
+<div class="login">
+	<div class="container">
+		<div style="float: left;color:#fff"><strong><i>Hỗ trợ trực tuyến:</i></strong> <strong style="color:#ffea58"><a href="tel:02466668786">024 6666 8786</a> - <a href="tel:0333169868">033 316 9868</a> (Từ 8h-17h) </strong></div>
+		<div style="float: right;" id="user-info">
+			{{^user}}
+			<ul class="main-nav">
+				<li><a href="/dang-ky"><i class="fa fa-user"></i> Đăng ký</a>|</li>
+				<li><a class="cd-signin" href="#"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+			</ul>
+			{{/user}}
+			{{#user}}
+			<script>window.is_login=true;</script>
+			<ul class="navuserled">
+				<li>ID: {{_id}} |</li>
+				<li>Lớp: {{class_id}} |</li>
+				<li class="dropdown"><a href="/tai-khoan" class="dropdown-toggle" data-toggle="dropdown">
+					<strong>{{name}}</strong></a>
+					<ul class="dropdown-menu">
+						<li><a href="/tai-khoan"><i class="fa fa-user"></i> Tài khoản</a></li>
+						<!--<li><a href="#"><i class="fa fa-key"></i> Đổi mật khẩu</a></li>-->
+						<li><a href="/user/logout" class="confirm-logout"><i class="fa fa-sign-out"></i> Thoát</a></li>
+					</ul>
+				</li>
+			</ul>
+			{{/user}}
+		</div>
+	</div>
+</div>
+{{^user}}
+	{{> ./includes/modal-login}}
+	<script src="/js/login.js?v1.3.4"></script>
+{{/user}}

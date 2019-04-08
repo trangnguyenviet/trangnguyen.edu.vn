@@ -1,0 +1,30 @@
+<div class="cd-user-modal">
+	<div class="cd-user-modal-container">
+		<div class="modal-header">
+			<h4 class="modal-title" id="myModalLabel">Đăng nhập</h4> </div>
+		<div id="cd-login">
+			<form class="cd-form">
+				<p class="fieldset"> <i class="fa fa-envelope"></i> <input class="full-width has-padding has-border" id="signin-email" type="text" placeholder="Tên đăng nhập" required> <span class="cd-error-message">Tên đăng nhập không hợp lệ!</span> </p>
+				<p class="fieldset"> <i class="fa fa-key"></i> <input class="full-width has-padding has-border" id="signin-password" type="password" placeholder="Mật khẩu" required> <a href="javascript:void(0)" class="hide-password">Show</a> <span class="cd-error-message">Hãy nhập mật khẩu</span> </p>
+				{{!<p class="fieldset"> <input type="checkbox" id="remember-me" checked> <label for="remember-me">Nhớ mật khẩu</label> </p>}}
+				<p class="fieldset"><span id="lb_message_login"></span>
+				<p class="fieldset"><input class="full-width" type="submit" value="Đăng nhập" style="cursor: pointer;"></p>
+			</form>
+			{{!
+			<p class="cd-form-bottom-message"><a href="/quen-mat-khau">Quên mật khẩu?</a></p>
+			<a href="javascript:void(0)" class="cd-close-form">Close</a>
+			}}
+		</div>
+		{{!
+		<div id="cd-reset-password">
+			<p class="cd-form-message">Nếu bạn quên mật khẩu, chỉ cần gõ địa chỉ email của bạn chúng tôi sẽ gửi link để khôi phục lại mật khẩu.</p>
+			<form class="cd-form">
+				<p class="fieldset"> <i class="fa fa-envelope"></i> <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="Email"> <span class="cd-error-message">Error message here!</span> </p>
+				<p class="fieldset"> <input class="full-width has-padding" type="submit" value="Khôi phục mật khẩu"> </p>
+			</form>
+			<p class="cd-form-bottom-message"><a href="javascript:void(0)">Quay trở lại đăng nhập</a></p>
+		</div>
+		<a href="javascript:void(0)" class="cd-close-form">Close</a>
+		}}
+	</div>
+</div>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+	<script src="/js/home.js?v=1.0.0"></script>
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<div class="row">
+				<div class="col-ldh-9">
+					<div class="mod-newsflash-adv posts">
+						<div class="row">
+							<article class="col-md-5 col-sm-5 item item_num0">
+								<div class="ico-thi"><a class="blink-red must-login" href="/tieng-viet">Vào thi<br> Trạng Nguyên</a></div>
+								<div class="bgboy"></div>
+								{{> ./includes/top-dang-ky}}
+								{{> ./includes/count-member}}
+							</article>
+							<div class="col-md-7 col-sm-7">
+								<div class="sidebar">
+									<h2 class="heading">
+										<a href="/tin-giao-duc">Tin Giáo dục</a> |
+										<a href="/tin-tu-ban-to-chuc"> Tin từ Ban tổ chức</a>
+									</h2>
+									<div class="main-boder">
+										<ul class="list-news">
+										{{#list_news_giaoduc}}
+											<li><span><a href="/tin-giao-duc/{{name_ko_dau}}.{{_id}}" title="{{name}}">{{name}}</a></span></li>
+										{{/list_news_giaoduc}}
+										</ul>
+										<script>
+										$(function(){
+											var list_li = $('.list-news li');
+											if(list_li.length>0){
+												if(list_li.length>=3){
+													for(var i=0;i<3;i++){
+														$(list_li[i]).css('background','url(/skins/images/icon_new.gif) no-repeat top right');
+													}
+												}
+												else{
+													list_li.css('background','url(/skins/images/icon_new.gif) no-repeat top right');
+												}
+											}
+										});
+										</script>
+									</div>
+								</div>
+								{{> ./includes/top-height-score}}
+							</div>
+						</div>
+					</div>
+					<div>
+						{{> ./includes/ads-vertical-admicro}}
+						{{!> ./includes/ads-vertical}}
+						{{!<!--<script type="text/javascript" src="//media1.admicro.vn/ads_codes/ads_box_39223.ads"></script>-->}}
+					</div>
+				</div>
+				<div class="col-ldh-3 right-sidebar">
+					<div class="bgboy_cuoingua"></div>
+					{{> ./includes/right-top}}
+				</div>
+			</div>
+		</div>
+	</section>
+	{{!> ./includes/luyen-tap}}
+	{{> ./includes/rank-score}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/footer}}
+	{{> ./includes/modal-message}}
+	{{!> ./includes/popup-home}}
+	{{> ./includes/loading}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

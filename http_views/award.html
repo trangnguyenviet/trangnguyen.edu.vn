@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="row">
+				<div class="col-ldh-12">
+					<ul class="breadcrumbs">
+						<li><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+						<li><a href="#">Tra cứu giải thưởng</a></li>
+					</ul>
+					<div class="bg-BXH">
+						<div class="title_table">Tra cứu giải thưởng</div>
+						<form action="" onsubmit="return false;" style="padding:10px 0">
+							<label>Giải thưởng: &nbsp;</label>
+							<select class="form-control" id="ddl_award">
+								<option value="1">Nhất thi Đình</option>
+								<option value="2">Nhì thi Đình</option>
+								<option value="3">Ba thi Đình</option>
+								<option value="4">Khuyến khích thi Đình</option>
+								<option value="5">Nhất thi Hội</option>
+								<option value="6">Nhì thi Hội</option>
+								<option value="7">Ba thi Hội</option>
+								<option value="8">Khuyến khích thi Hội</option>
+								<option value="9">Nhất thi Hương</option>
+								<option value="10">Nhì thi Hương</option>
+								<option value="11">Ba thi Hương</option>
+								<option value="12">Khuyến khích thi Hương</option>
+								<option value="13">Hoàn thành xuất sắc vòng thi số 19</option>
+							</select>
+							<label>Lớp: &nbsp;</label>
+							<select id="ddl_class">
+								<option value="0">Tất cả</option>
+								<option value="1">lớp 1</option>
+								<option value="2">lớp 2</option>
+								<option value="3">lớp 3</option>
+								<option value="4">lớp 4</option>
+								<option value="5">lớp 5</option>
+							</select>
+							<button id="bt_search">Tra cứu</button>
+						</form>
+						<table id="div_content" class="table-bv" border="0" cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th width="6%">STT</th>
+									<th width="10%">ID</th>
+									<th width="28%">Họ và tên</th>
+									<th width="10%">Ngày sinh</th>
+									<th width="15%">Lớp</th>
+									<th width="10%">Trường</th>
+									<th width="10%">Quận/Huyện</th>
+									<th width="10%">Tỉnh/TP</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr><td colspan="8">không có dữ liệu</td></tr>
+							</tbody>
+						</table>
+						<div id="div_page"></div>
+						<script type="text/javascript">
+							$(function(){
+								$('#bt_search').click(function(){
+									var award = $('#ddl_award').val();
+									if(award!='' && util.isInt(award) && award>0){
+										$.ajax({
+											url: window.location.href,
+											type: 'POST',
+											dataType: "json",
+											data: {award: award, class_id: $('#ddl_class').val()},
+											success:function(data){
+												if(data.error==0){
+													if(data.users){
+														var html='';
+														for(var i = 0, user_info; user_info = data.users[i]; i++){
+															if(user_info){
+																html+='<tr>';
+																html+='<td>'+(i+1)+'</td>';
+																html+='<td>'+user_info._id+'</td>';
+																html+='<td>'+user_info.name+'</td>';
+																html+='<td>'+(user_info.birthday?util.dateShow(new Date(user_info.birthday)):'')+'</td>';
+																html+='<td>'+user_info.class_id+' ('+user_info.class_name+')</td>';
+																html+='<td>'+user_info.school_name+'</td>';
+																html+='<td>'+user_info.district_name+'</td>';
+																html+='<td>'+user_info.province_name+'</td>';
+																html+='</tr>';
+															}
+														}
+													}
+													else{
+														TN_POPUP.show(data.message);
+													}
+													$('#div_content tbody').html(html);
+													goToByScroll('#div_content');
+												}
+												else{
+													TN_POPUP.show(data.message);
+												}
+											}
+										});
+									}
+									else{
+										TN_POPUP.show('Giải thưởng không đúng');
+									}
+								});
+							});
+						</script>
+					</div>
+				</div>
+				<div class="row">
+					{{> ./includes/ads-vertical}}
+				</div>
+			</div>
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/loading}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

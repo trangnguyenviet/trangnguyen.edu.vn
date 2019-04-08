@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<div class="row">
+				<div class="col-ldh-8">
+					<ul class="breadcrumbs">
+						<li><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+						<li><a href="javascript:void('bài giảng')">Bài giảng</a></li>
+						<li><a href="{{baseUrl}}">{{subjects}}</a></li>
+					</ul>
+					<div class="bg-news">
+						<article class="thumbnail-news-view">
+						{{#lesson_info}}
+							<div class="videoWrapper">
+								<script>
+									var current_id={{_id}};
+									var querystring = Urllib.GetQueryString();
+									var autoplay=(querystring['play']=='true')?1:0;
+									var url = '{{{url}}}';
+									var video_id;
+									var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+									var match = url.match(regExp);
+									if (match && match[2].length == 11) {
+										video_id = match[2];
+									}
+									if (video_id) {
+										document.write('<iframe width="290" height="163" src="https://www.youtube-nocookie.com/embed/' + video_id + '?rel=0&amp;controls=1&amp;showinfo=1&amp;autoplay='+autoplay+'" frameborder="0" allowfullscreen></iframe>');
+									}
+								</script>
+							</div>
+							<div class="post_content">
+								<h3>{{name}}</h3>
+								<p>{{{content}}}</p>
+							</div>
+							<div class="block_timer_share">
+								<div class="block_timer pull-left">
+									<span class="tags"><strong><i class="fa fa-tags"></i> Tags:</strong>
+									{{#tags}}
+										<a href="#{{.}}">{{.}}</a>
+									{{/tags}}
+									</span>
+								</div>
+								<div class="tn-view-counter">Lượt xem: <span>{{icount}}</span></div>
+								<div class="clear">
+									<div class="fb-like" data-href="https://trangnguyen.edu.vn{{baseUrl}}/{{name_ko_dau}}.{{_id}}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+								</div>
+							</div>
+							<div>
+								{{> ./includes/ads-vertical-content}}
+							</div>
+							{{!> ./includes/fb-comment}}
+							<!--<div class="fb-comments" data-width="100%" data-href="https://trangnguyen.edu.vn/lesson/{{_id}}" data-numposts="8"></div>-->
+						{{/lesson_info}}
+						</article>
+					</div>
+				</div>
+				<div class="col-ldh-4 right-sidebar">
+					{{> ./includes/right-top}}
+					<div class="block_studyvd">
+						<div class="main-border">
+							<ul class="video-new" id="div_other"></ul>
+							<div id="div_page" style="margin: 0 10px 0;"></div>
+						</div>
+					</div>
+					<script type="text/javascript">
+						var baseUrl = '{{{baseUrl}}}';
+						var ListOther=(page_index,bscroll)=>{
+							if(page_index>0) window.history.pushState({trang:page_index},'','?trang='+page_index);
+							else window.history.pushState({trang:page_index},'','?play');
+							$.ajax({
+								url: baseUrl + "/list-other",
+								data:{trang:page_index},
+								dataType: "json",
+								success:function(data){
+									if(data.error==0){
+										if(data.content){
+											var list_video = data.content;
+											var page_index = data.page_index;
+											var page_size = data.page_size;
+											var total_rows = data.total_rows;
+											var html='';
+											for(var i=0;i<list_video.length;i++){
+												var video = list_video[i];
+												if(current_id==video._id) html+='<li class="active">';
+												else html+='<li>';
+												html+='<div class="one cover-outer-align"> <span class="icon-circle-play"><a href="'+baseUrl+'/'+ video.name_ko_dau+'.'+ video._id+'?play=true&amp;trang='+page_index+'" title="'+video.name+'"><i class="fa fa-play"></i></a></span> <a href="'+baseUrl+'/'+video.name_ko_dau+'.'+video._id+'?play=true&trang='+page_index+'" title="'+video.name+'"><img alt="'+video.name+'" src="'+video.thumb+'"></a> </div> <div class="two"> <h4><a href="'+baseUrl+'/'+video.name_ko_dau+'.'+video._id+'?play=true&trang='+page_index+'" title="'+video.name+'">'+video.name+'</a></h4> </div> </li>';
+											}
+											$('#div_other').html(html);
+											$('#div_page').html(util.GenPageJs(total_rows,page_size,page_index,'page pageA pageA06','current',3,'GoPage'));
+											if(bscroll) goToByScroll('#div_other');
+										}
+									}
+									else{
+										ShowMessError(data.message);
+									}
+								}
+							});
+						}
+						$(function(){
+							var page_index = util.parseInt(querystring['trang']);
+							ListOther(page_index);
+						});
+						function GoPage(page_index){
+							ListOther(page_index,true);
+						}
+					</script>
+				</div>
+			</div>
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

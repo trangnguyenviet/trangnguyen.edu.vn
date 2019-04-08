@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="row">
+				<div class="col-ldh-9">
+					<ul class="breadcrumbs">
+						<li><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+						<li><a href="/bang-vang">Bảng vàng</a></li>
+						{{#province_id}}
+						<li><a href="/bang-vang/{{province_id}}">{{province_name}}</a></li>
+						{{/province_id}}
+						{{#district_id}}
+						<li><a href="/bang-vang/{{province_id}}/{{district_id}}">{{district_name}}</a></li>
+						{{/district_id}}
+					</ul>
+					<div class="bg-BXH">
+						<div class="title_table">{{page_title}}</div>
+						<table id="div_content" class="table-bv" border="0" cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th width="6%">STT</th>
+									<th width="64%">Tỉnh/Thành phố</th>
+									<th width="30%">Học sinh</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="3">loading...</td>
+								</tr>
+							</tbody>
+						</table>
+						<script type="text/javascript">
+							$(function(){
+								$.ajax({
+									url: window.location.href,
+									type: 'POST',
+									dataType: "json",
+									success:function(data){
+										// console.log(data);
+										if(data.error==0){
+											if(data.content){
+												var arr = SortArray(data.content,'count',false);
+												var html='';
+												for(var i=0;i<arr.length;i++){
+													var item = arr[i];
+													html+='<tr> <td>'+(i+1)+'</td> <td><a href="/bang-vang'+data.prefix+'/'+item._id.id+'"><strong>'+item._id.name+'</strong></a></td> <td>'+item.count+'</td> </tr>';
+												}
+												$('#div_content tbody').html(html);
+											}
+										}
+									}
+								});
+							});
+						</script>
+					</div>
+				</div>
+				<div class="col-ldh-3 right-sidebar">
+					{{> ./includes/right-bang-vang}}
+					{{> ./includes/ads-auto}}
+				</div>
+			</div>
+			{{> ./includes/ads-vertical-content}}
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

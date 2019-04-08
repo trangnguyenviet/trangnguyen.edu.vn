@@ -1,0 +1,11 @@
+.idea
+vendor
+node_modules
+temp/
+uploads/
+ads-code/
+test-*
+*.log
+config.js
+.vscode/
+/package-lock.json

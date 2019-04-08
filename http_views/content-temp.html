@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="row">
+				<div class="col-ldh-9">
+					
+				</div>
+				<div class="col-ldh-3 right-sidebar">
+					{{> ./includes/user}}
+					{{> ./includes/support}}
+					<div class="ad_300">
+						{{> ./includes/ads-300x250}}
+					</div>
+					{{> ./includes/top-dang-ky}}
+					<div class="ad_300">
+						{{> ./includes/ads-300x250}}
+					</div>
+				</div>
+			</div>
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

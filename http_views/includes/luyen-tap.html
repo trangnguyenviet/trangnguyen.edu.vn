@@ -1,0 +1,140 @@
+<section id="top_luyenthi">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-sm-6 col-xs-12">
+				<div class="block_study">
+					<div class="top_header bg_green"> <span class="base_huyhieu"></span>
+						<h2><a href="/luyen-tieng-viet"> Luyện tập<br>tiếng việt</a></h2> <span class="base_ico-tn"></span> </div>
+					<ul class="list_study">
+						{{#exam_olympic_cuoituan}}
+						<script>
+							var open_round = {{current_round}};
+							var max_round = {{max_round}};
+							for(var i=1;i<=max_round;i++){
+								if(i<=open_round)
+									document.write('<li><a class="must-login" href="/luyen-tieng-viet/vong-'+i+'" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+								else
+									document.write('<li class="hidethi"><a href="javascript:void(0);" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+							}
+						</script>
+						{{/exam_olympic_cuoituan}}
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6 col-xs-12">
+				<div class="block_study">
+					<div class="top_header bg_green">
+						<span class="base_huyhieu"></span>
+						<h2><a href="/luyen-toan">Luyện tập<br>Toán</a></h2>
+						<span class="base_ico-tn"></span>
+					</div>
+					<ul class="list_study">
+						{{#exam_olympic_toan}}
+						<script>
+							var open_round = {{current_round}};
+							var max_round = {{max_round}};
+							for(var i=1;i<=max_round;i++){
+								if(i<=open_round)
+									document.write('<li><a class="must-login" href="/luyen-toan/vong-'+i+'" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+								else
+									document.write('<li class="hidethi"><a href="javascript:void(0);" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+							}
+						</script>
+						{{/exam_olympic_toan}}
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div class="block_study">
+					<div class="top_header bg_green">
+						<span class="base_huyhieu"></span>
+						<h2><a href="/luyen-tieng-anh">Luyện tập<br>tiếng anh</a></h2>
+						<span class="base_ico-tn"></span>
+					</div>
+					<ul class="list_study">
+						{{#exam_olympic_english}}
+						<script>
+							var open_round = {{current_round}};
+							var max_round = {{max_round}};
+							for(var i=1;i<=max_round;i++){
+								if(i<=open_round)
+									document.write('<li><a class="must-login" href="/luyen-tieng-anh/vong-'+i+'" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+								else
+									document.write('<li class="hidethi"><a href="javascript:void(0);" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+							}
+						</script>
+						{{/exam_olympic_english}}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-6 col-xs-12">
+				<div class="block_study">
+					<div class="top_header bg_green"> <span class="base_huyhieu"></span>
+						<h2><a href="/luyen-khoa-hoc-tu-nhien"> Khoa học<br>Tự nhiên</a></h2> <span class="base_ico-tn"></span> </div>
+					<ul class="list_study">
+						{{#exam_khoahoc_tunhien}}
+						<script>
+							var open_round = {{current_round}};
+							var max_round = {{max_round}};
+							for(var i=1;i<=max_round;i++){
+								if(i<=open_round)
+									document.write('<li><a class="must-login" href="/luyen-khoa-hoc-tu-nhien/vong-'+i+'" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+								else
+									document.write('<li class="hidethi"><a href="javascript:void(0);" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+							}
+						</script>
+						{{/exam_khoahoc_tunhien}}
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6 col-xs-12">
+				<div class="block_study">
+					<div class="top_header bg_green">
+						<span class="base_huyhieu"></span>
+						<h2><a href="/luyen-su-dia-xa-hoi">Sử - Địa<br>Xã hội</a></h2>
+						<span class="base_ico-tn"></span>
+					</div>
+					<ul class="list_study">
+						{{#exam_su_dia_xahoi}}
+						<script>
+							var open_round = {{current_round}};
+							var max_round = {{max_round}};
+							for(var i=1;i<=max_round;i++){
+								if(i<=open_round)
+									document.write('<li><a class="must-login" href="/luyen-su-dia-xa-hoi/vong-'+i+'" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+								else
+									document.write('<li class="hidethi"><a href="javascript:void(0);" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+							}
+						</script>
+						{{/exam_su_dia_xahoi}}
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div class="block_study">
+					<div class="top_header bg_green">
+						<span class="base_huyhieu"></span>
+						<h2><a href="/luyen-iq-toan-tieng-anh">IQ - Toán<br>Tiếng anh</a></h2>
+						<span class="base_ico-tn"></span>
+					</div>
+					<ul class="list_study">
+						{{#exam_iq_toan_tienganh}}
+						<script>
+							var open_round = {{current_round}};
+							var max_round = {{max_round}};
+							for(var i=1;i<=max_round;i++){
+								if(i<=open_round)
+									document.write('<li><a class="must-login" href="/luyen-iq-toan-tieng-anh/vong-'+i+'" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+								else
+									document.write('<li class="hidethi"><a href="javascript:void(0);" title="Vòng '+i+'">Vòng '+i+'</a></li>');
+							}
+						</script>
+						{{/exam_iq_toan_tienganh}}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

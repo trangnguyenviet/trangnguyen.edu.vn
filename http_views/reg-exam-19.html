@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+	{{^error}}
+	<script type="text/javascript">
+		$(function(){
+			var regExam = {
+				control:{
+					img_captcha: $('#img_captcha'),
+					img_refresh: $('#img_refresh'),
+					tb_captcha: $('#tb_captcha'),
+					lb_message: $('#lb_message'),
+					bt_submit: $('#bt_submit')
+				}
+			};
+
+			regExam.control.img_captcha.click(function(){
+				change_captcha();
+				regExam.control.tb_captcha.focus();
+			});
+
+			regExam.control.img_refresh.click(function(){
+				change_captcha();
+				regExam.control.tb_captcha.focus();
+			});
+
+			function change_captcha(){
+				regExam.control.img_captcha.attr('src','/captcha.png?tn=' + Math.random());
+				regExam.control.tb_captcha.val('');
+			}
+
+			regExam.control.bt_submit.click(function(){
+				var control = regExam.control;
+				var captcha = control.tb_captcha.val();
+
+				if(captcha.length!=6){
+					control.lb_message.show().text('Mã bảo vệ phải có 6 số');
+					control.tb_captcha.focus();
+					return false;
+				}
+
+				$.ajax({
+					url: window.location.href,
+					dataType: "json",
+					type: 'POST',
+					data:{captcha:captcha},
+					beforeSend: function( xhr ) {
+						spinner.show();
+						control.lb_message.show().text('đang thực hiện...');
+						control.bt_submit.prop('disabled',true);
+					},
+					success:function(data){
+						if(data.error==0){
+							control.lb_message.show().text('Đăng ký thành công');
+							var bottons = [{
+									caption:'Thoát',
+									callback:function(){
+										window.history.back();
+									}
+								}];
+							TN_POPUP.show('Đăng ký thành công!','Thành công',440,300,bottons);
+						}
+						else{
+							control.lb_message.show().text(data.message);
+							TN_POPUP.show(data.message,'Thông báo');
+							control.bt_submit.prop('disabled',false);
+						}
+					}
+				})
+				.always(function() {
+					spinner.hide();
+					change_captcha();
+				});
+				return false;
+			});
+		});
+	</script>
+	{{/error}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<div class="box-competition">
+				<div class="col-md-6 col-sm-6 col-xs-12 box-user">
+					<form class="cd-form" method="post" onsubmit="return false;">
+						<div class="col-md-12 title-noptien">
+							<h2>Đăng ký thi vòng 19</h2>
+						</div>
+						{{#user}}
+						<div class="col-md-4 col-sm-4">ID:</div>
+						<div class="col-md-8 col-sm-8">
+							<p class="fieldset"> <input class="full-width has-nt has-border" disabled="disabled" type="text" value="{{_id}}"> </p>
+						</div>
+						<div class="col-md-4 col-sm-4">Tên đăng nhập:</div>
+						<div class="col-md-8 col-sm-8">
+							<p class="fieldset"> <input class="full-width has-nt has-border" disabled="disabled" type="text" value="{{username}}"> </p>
+						</div>
+						<div class="col-md-4 col-sm-4">Trạng thái</div>
+						<div class="col-md-8 col-sm-8">
+							<p class="fieldset"> <input class="full-width has-nt has-border" id="tb_status" type="text" value="{{message}}" disabled> </p>
+						</div>
+						{{#error}}
+						<div class="col-md-8 col-sm-4 col-md-offset-4">
+							<p class="fieldset">
+								<input onclick="window.history.back()" class="btn-w" type="submit" value="Thoát"/>
+							</p>
+						</div>
+						{{/error}}
+						{{^error}}
+						<div class="col-md-4 col-sm-4">Mã bảo vệ(<span class="txt-red"> * </span>)</div>
+						<div class="col-md-8 col-sm-8">
+							<p class="fieldset">
+								<input style="width:136px; margin-top:2px;" maxlength="6" class="full-width has-padding has-border" id="tb_captcha" type="text" placeholder="Nhập mã">
+								<img src="/captcha.png" alt="captcha" id="img_captcha" /> <img id="img_refresh" src="/skins/images/refresh_icon.gif" alt="" />
+							</p>
+						</div>
+						<div class="col-md-8 col-sm-4 col-md-offset-4">
+							<span id="lb_message"></span>
+							<p class="fieldset">
+								<input id="bt_submit" class="btn-w" type="submit" value="Đăng ký thi"/>
+							</p>
+						</div>
+						{{/error}}
+						{{/user}}
+						{{^user}}
+						<div class="col-md-4 col-sm-4">ID:</div>
+						<div class="col-md-8 col-sm-8">
+							<p class="fieldset"> <input class="full-width has-nt has-border" disabled="disabled" type="text" value="(Bạn chưa đăng nhập)"> </p>
+						</div>
+						<div class="col-md-4 col-sm-4">Tên đăng nhập:</div>
+						<div class="col-md-8 col-sm-8">
+							<p class="fieldset"> <input class="full-width has-nt has-border" disabled="disabled" type="text" value="(Bạn chưa đăng nhập)"> </p>
+						</div>
+						<div class="col-md-4 col-sm-4">Trạng thái:</div>
+						<div class="col-md-8 col-sm-8">
+							<p class="fieldset"> <input class="full-width has-nt has-border" value="(Bạn chưa đăng nhập)" type="text" disabled> </p>
+						</div>
+						{{/user}}
+					</form>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12 box-huongdan">
+					<ul class="other-hd">
+						<h2>Chú ý</h2>
+						<li>Điều kiện đăng ký: học sinh chưa thi qua vòng 19. Tổng điểm 18 vòng thi tối thiểu đạt từ 5.200 điểm</li>
+						<li>Thời gian thi: 9h-17h ngày 19/5.</li>
+						<li>Các cháu có thành tích thi vòng 19 tốt sẽ nhận được giấy khen từ ban tổ chức.</li>
+						<li>Hạn đăng ký đến hết ngày 18/5.</li>
+						<li>Mã thi sẽ được BTC công bố tại địa chỉ <a target="_blank" href="/ma-thi-vong-19">https://trangnguyen.edu.vn/ma-thi-vong-19</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

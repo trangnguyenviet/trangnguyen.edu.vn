@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<div class="box-competition">
+				<div class="col-md-6 col-sm-6 col-xs-12 box-user">
+					<form class="cd-form" method="post" onsubmit="return false;">
+						<div class="col-md-12 title-noptien">
+							<h2>Mã thi vòng 19</h2>
+						</div>
+						<div class="col-md-12 title-noptien" style="text-align: center">
+						{{#error}}
+							<h3>{{message}}</h3>
+						{{/error}}
+						{{^error}}
+							{{#code}}
+								<h3>{{.}}</h3>
+							{{/code}}
+							{{^code}}
+								<h3>Mã thi sẽ hiển thị sau: <span id="timeshow">...</span></h3>
+								<script type="text/javascript">
+									$(function(){
+										var timeleft = Math.abs(Math.floor({{timeleft}}/1000));
+										var timeshow = $('#timeshow');
+										var t = setInterval(function(){
+											timeleft--;
+											if(timeleft<=0){
+												window.location.reload(true);
+											}
+											else{
+												var d=0,h=0,m=0,s=timeleft;
+												if(s>3600){
+													h=Math.floor(s/3600);
+													s-=h*3600;
+													if(h>24){
+														d=Math.floor(h/24);
+														h-=d*24;
+													}
+												}
+												if(s>60){
+													m=Math.floor(s/60);
+													s-=m*60;
+												}
+												timeshow.text((d>0?d+' ngày, ':'') + (h<10?'0'+h:h)+':'+(m<10?'0'+m:m)+':'+(s<10?'0'+s:s));
+											}
+										},1000);
+									});
+								</script>
+							{{/code}}
+						{{/error}}
+						</div>
+					</form>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12 box-huongdan">
+					<ul class="other-hd">
+						<h2>Chú ý</h2>
+						<li>Điều kiện đăng ký: học sinh chưa thi qua vòng 19. Tổng điểm 18 vòng thi tối thiểu đạt từ 5.200 điểm</li>
+						<li>Thời gian thi: 9h-17h ngày 19/5.</li>
+						<li>Các cháu có thành tích thi vòng 19 tốt sẽ nhận được giấy khen từ ban tổ chức.</li>
+						<li>Hạn đăng ký đến hết ngày 18/5.</li>
+						<li>Đăng ký thi vòng 19 <a target="_blank" href="/dang-ky-thi-vong-19">tại đây</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

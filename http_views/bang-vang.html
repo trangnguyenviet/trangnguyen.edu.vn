@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="row">
+				<div class="col-ldh-9">
+					<ul class="breadcrumbs">
+						<li><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+						<li><a href="/bang-vang">Bảng vàng</a></li>
+					</ul>
+					<div class="bg-BXH">
+						<div class="title_table">Số học sinh dự thi online toàn quốc</div>
+						<ul class="quantity-pupil">
+							<li class="col-md-4 col-sm-6"><span><a>Lớp 1:</a>&nbsp;<strong>....</strong> bạn</span></li>
+							<li class="col-md-4 col-sm-6"><span><a>Lớp 2:</a>&nbsp;<strong>....</strong> bạn</span></li>
+							<li class="col-md-4 col-sm-6"><span><a>Lớp 3:</a>&nbsp;<strong>....</strong> bạn</span></li>
+							<li class="col-md-4 col-sm-6"><span><a>Lớp 4:</a>&nbsp;<strong>....</strong> bạn</span></li>
+							<li class="col-md-4 col-sm-6"><span><a>Lớp 5:</a>&nbsp;<strong>....</strong> bạn</span></li>
+						</ul>
+						{{> ./includes/ads-vertical-content}}
+						<div class="title_table">Số học sinh dự thi online địa phương</div>
+						<table id="div_count_province" class="table-bv" border="0" cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th width="6%">STT</th>
+									<th width="64%">Tỉnh/Thành phố</th>
+									<th width="30%">Học sinh</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="3">loading...</td>
+								</tr>
+							</tbody>
+						</table>
+						{{> ./includes/script-top-dangky}}
+						<script type="text/javascript">
+							$(function(){
+								$.ajax({
+									url: window.location.href,
+									type: 'POST',
+									dataType: "json",
+									success:function(data){
+										// console.log(data);
+										if(data.error==0){
+											if(data.content){
+												var arr = SortArray(data.content,'count',false);
+												var html='';
+												for(var i=0;i<arr.length;i++){
+													var item = arr[i];
+													html+='<tr> <td>'+(i+1)+'</td> <td><a href="/bang-vang/'+item._id.province_id+'"><strong>'+item._id.province_name+'</strong></a></td> <td>'+item.count+'</td> </tr>';
+												}
+												$('#div_count_province tbody').html(html);
+											}
+										}
+									}
+								});
+							});
+						</script>
+					</div>
+				</div>
+				<div class="col-ldh-3 right-sidebar">
+					{{> ./includes/right-bang-vang}}
+					{{> ./includes/ads-auto}}
+				</div>
+			</div>
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

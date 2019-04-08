@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="row">
+				<div class="col-ldh-9">
+					<ul class="breadcrumbs">
+						<li><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+						<li><a href="{{baseUrl}}">{{base_name}}</a></li>
+					</ul>
+					<div class="bg-news">
+						<article class="thumbnail-news-view">
+							<h1>{{name}}</h1>
+							<p class="date_view"><i class="fa fa-calendar-o"></i> {{created_atx}}</p>
+							<div class="block_timer_share">
+								<div class="block_timer pull-left"><span class="tags"><strong><i class="fa fa-tags"></i> Tags:</strong>
+								{{#tags}}
+									<a href="#{{.}}">{{.}}</a>
+								{{/tags}}
+								</span></div>
+								<div class="tn-view-counter">Lượt đọc: <span>{{icount}}</span></div>
+							</div>
+							<div class="post_content">
+								{{{content}}}
+							</div>
+							{{> ./includes/ads-vertical-content}}
+							{{!> ./includes/fb-root}}
+							{{!> ./includes/fb-comment}}
+						</article>
+						<ul class="other-news-detail">
+							<h2>Các tin khác</h2>
+							{{#others}}
+							<li><span><a href="{{baseUrl}}/{{name_ko_dau}}.{{_id}}" title="{{name}}">{{name}}</a></span></li>
+							{{/others}}
+						</ul>
+					</div>
+				</div>
+				<div class="col-ldh-3 right-sidebar">
+					{{> ./includes/right-top}}
+					{{> ./includes/ads-auto}}
+					{{!> ./includes/ads-google-300x250}}
+					{{!> ./includes/ads-litcheetravel-300}}
+					{{!> ./includes/ads-admicro-300x250}}
+					{{!> ./includes/ads-300x250-r}}
+				</div>
+			</div>
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+	<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+	<amp-auto-ads type="adsense" data-ad-client="ca-pub-7945335481705184"></amp-auto-ads>
+</body>
+</html>

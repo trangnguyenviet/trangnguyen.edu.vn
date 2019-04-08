@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+	<style type="text/css">
+	.box-note .title-larg-header{display: none}
+	.box-user{background:none;}
+	.box-user .pd-user{margin-top: 20px}
+	ul.other-hd{margin-top: 20px;margin-bottom: 10px;}
+	.box-huongdan{background: none}
+	.bg-while,.box-note .view-content{margin-top: 25px;}
+	</style>
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="box-competition">
+				<div class="col-md-4 col-sm-4 col-xs-12 box-user">
+					<div class="pd-user" style="margin-bottom: 6px;overflow: hidden;">
+						{{#user}}
+						<div class="col-md-5 col-sm-6 col-xs-6 center">
+							<img class="cicle" src="/avatar/no_avatar.jpg" alt=""/>
+							<!--<p><a class="btn btn-red" href="#" data-toggle="modal" data-target="#logout">Thoát</a></p>-->
+						</div>
+						<div class="col-md-7 col-sm-6 col-xs-6 user-txt">
+								<p><strong>{{user.name}}</strong></p>
+								<p>ID: {{user._id}}</p>
+								<p>Lớp {{user.class_id}}</p>
+								<p>{{user.school_name}}</p>
+						</div>
+						<div class="col-md-12 clear-fix">
+							<div class="user-content">
+								<p>Môn thi: <strong>{{page_name}}</strong></p>
+								{{#exam_info}}
+								<p>Vòng thi hệ thống: <strong>{{current_round}}</strong></p>
+								{{/exam_info}}
+							</div>
+						</div>
+						{{/user}}
+					</div>
+					{{> ./includes/ads-admicro-300x250}}
+				</div><!--End-->
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					 <div class="box-note">
+						<div class="title-larg-header"><h1>Vào<br>thi</h1></div>
+						<div class="view-content">
+							<p><strong>Lưu ý :</strong></p>
+							<p>Thời gian vòng thi sẽ bắt đầu tính khi bạn chọn nút “Làm bài thi”</p>
+							<p>Thời gian vòng thi sẽ tính bằng thời gian thi + giải lao</p>
+							<p>Điểm thi của bạn phải ≥ 50% của vòng thi bạn mới qua</p>
+							<p><br></p>
+							<p><strong>Các trường hợp thi sai luật:</strong></p>
+							<p>Đăng nhập một tài khoản trên hai máy hoặc hai trình duyệt khác nhau và thi cùng một thời điểm</p>
+							<p>Đang làm bài thi mà tải lại trang đề thi hoặc thoát ra không nộp bài</p>
+							<p>Mở nhiều cửa sổ vào thi một lúc</p>
+
+							{{#error_message}}
+							<script>
+								$(function(){
+									window.error_code = '{{error}}';
+									if(window.error_code && window.error_code == 1111){
+										var bottons = [{
+											caption:'Xem hướng dẫn',
+											callback:function(){
+												window.location.href='/tin-giao-duc/huong-dan-xac-nhan-tai-khoan.1121';
+											}
+										},{
+											caption:'Để lúc khác',
+											callback: function(){
+												window.history.go(-1);
+											}
+										}];
+										TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+									}
+									else if(window.error_code && window.error_code == 8888){
+										var bottons = [{
+											caption:'Nộp học phí',
+											callback:function(){
+												window.location.href='/nop-hoc-phi';
+											}
+										},{
+											caption:'Để lúc khác'
+										}];
+										TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+									}
+									else if(window.error_code && window.error_code == 9996){
+										var bottons = [
+											{
+												caption:'Nhập mã',
+												callback:function(){
+													window.location.href='/ma-thi-truong';
+												}
+											}
+										];
+										TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+									}
+									else if(window.error_code && window.error_code == 9997){
+										var bottons = [
+											{
+												caption:'Nhập mã',
+												callback:function(){
+													window.location.href='/ma-thi-huyen';
+												}
+											}
+										];
+										TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+									}
+									else if(window.error_code && window.error_code == 9998){
+										var bottons = [
+											{
+												caption:'Nhập mã',
+												callback:function(){
+													window.location.href='/ma-thi-tinh';
+												}
+											}
+										];
+										TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+									}
+									else if(window.error_code && window.error_code == 9999){
+										var bottons = [
+											{
+												caption:'Nhập mã',
+												callback:function(){
+													window.location.href='/ma-thi-dinh';
+												}
+											}
+										];
+										TN_POPUP.show('{{{error_message}}}',null,null,null,bottons);
+									}
+									else TN_POPUP.show('{{{error_message}}}',null,null,null,[{caption:'Quay lại',callback:function(){window.history.go(-1);}}]);
+								});
+							</script>
+							{{/error_message}}
+							{{^error_message}}
+								<div class="mt-15">
+								{{#exam_lists}}
+									{{#enable}}
+										<a href="{{url}}" score="{{score}}" class="btn btn-red enable">{{name}}</a>
+									{{/enable}}
+									{{^enable}}
+										<a href="{{url}}" score="{{score}}" class="btn btn-red exam-not-enable">{{name}}</a>
+									{{/enable}}
+								{{/exam_lists}}
+								</div>
+							{{/error_message}}
+						</div>
+					 </div>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12 box-huongdan">
+					<ul class="other-hd">
+						<h2>Hướng dẫn</h2>
+						{{#list_news}}
+						<li><span><a href="{{path_news}}/{{name_ko_dau}}.{{_id}}" title="{{name}}">{{name}}</a></span></li>
+						{{/list_news}}
+					</ul>
+					<div class="ad_300">
+						{{> ./includes/ads-google-300x250}}
+					</div>
+				</div>
+			</div>
+			<!--end content-->
+			{{> ./includes/ads-vertical}}
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

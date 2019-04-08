@@ -1,0 +1,153 @@
+<section id="top_diemcao">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-sm-6 col-xs-12 block_score">
+				<h2><a href="/bang-vang/toan-quoc/"> Điểm cao nhất quốc gia</a></h2>
+				<select class="selectBox-dropdown" id="ddl_top_national">
+					<option value="1">Lớp 1</option>
+					<option value="2">Lớp 2</option>
+					<option value="3">Lớp 3</option>
+					<option value="4">Lớp 4</option>
+					<option value="5">Lớp 5</option>
+					<option value="6">Lớp 6</option>
+				</select>
+				<ul class="list_score" id="list_top_national"></ul>
+				<script>
+					$(function(){
+						var LoadListTopNational = function(class_id){
+							$.ajax({
+								url: '/bang-vang/national-home',
+								type: 'POST',
+								dataType: 'json',
+								data:{class_id: class_id},
+								success:function(data){
+									if(data.error==0){
+										var html = '';
+										if(data.content && data.content.length>0){
+											for(var i=0, item; item=data.content[i];i++){
+												html+='<li> <div class="ld-grid-1"> <a title="" href="/tai-khoan/'+item._id+'"><img src="/avatar/'+item._id+'.jpg"></a> </div> <div class="ld-grid-2 ld-sapo"> <p class="title"><a href="/tai-khoan/'+item._id+'"><strong>'+item.name+'</strong></a></p> <p>Tổng điểm: '+item.total_score_4+'</p><p>Thời gian: '+item.total_time_4+'</p></div></li>';
+											}
+										}
+										$('#list_top_national').html(html);
+									}
+								}
+							});
+						};
+
+						$('#ddl_top_national').change(function(){
+							var class_id = $(this).val();
+							LoadListTopNational(class_id);
+						});
+
+						util.randomSelect('#ddl_top_national');
+						$('#ddl_top_national').trigger('change');
+					});
+				</script>
+			</div>
+			<!--End-->
+			<div class="col-md-4 col-sm-6 col-xs-12 block_score">
+				<h2>Điểm cao nhất tỉnh/tp</h2>
+				<select class="selectBox-dropdown" id="ddl_top_province" style="width:60%;float:left">
+					{{#provinces}}
+						<option value="{{_id}}">{{name}}</option>
+					{{/provinces}}
+				</select>
+				<select class="selectBox-dropdown" id="ddl_top_province_class" style="width:40%">
+					<option value="1">Lớp 1</option>
+					<option value="2">Lớp 2</option>
+					<option value="3">Lớp 3</option>
+					<option value="4">Lớp 4</option>
+					<option value="5">Lớp 5</option>
+					<option value="6">Lớp 6</option>
+				</select>
+				<ul class="list_score" id="list_top_province"></ul>
+				<script>
+					$(function(){
+						var loadTopProvince = function(province_id,class_id){
+							$.ajax({
+								url: '/bang-vang/province-home',
+								type: 'POST',
+								dataType: 'json',
+								data:{province_id:province_id,class_id: class_id},
+								success:function(data){
+									if(data.error==0){
+										var html = '';
+										if(data.content && data.content.length>0){
+											for(var i=0, item; item=data.content[i];i++){
+												html+='<li> <div class="ld-grid-1"> <a title="" href="/tai-khoan/'+item._id+'"><img src="/avatar/'+item._id+'.jpg"></a> </div> <div class="ld-grid-2 ld-sapo"> <p class="title"><a href="/tai-khoan/'+item._id+'"><strong>'+item.name+'</strong></a></p> <p>Tổng điểm: '+item.total_score_4+'</p><p>Thời gian: '+item.total_time_4+'</p></div></li>';
+											}
+										}
+										$('#list_top_province').html(html);
+									}
+								}
+							});
+						};
+						var getParam = function(){
+							var province_id = $('#ddl_top_province').val();
+							var class_id = $('#ddl_top_province_class').val();
+							loadTopProvince(province_id,class_id);
+						};
+						$('#ddl_top_province').change(function(){
+							getParam();
+						});
+						$('#ddl_top_province_class').change(function(){
+							getParam();
+						});
+
+						util.randomSelect('#ddl_top_province');
+						util.randomSelect('#ddl_top_province_class');
+						$('#ddl_top_province').trigger('change');
+					});
+				</script>
+			</div>
+			<!--End-->
+			<div class="col-md-4 col-sm-6 col-xs-12 block_score">
+				<h2><a href="/su-kien/bang-vang/1000-diem-giang-sinh-2018.30/"> Điểm cao thi 1000</a></h2>
+				<select class="selectBox-dropdown" id="ddl_top_event">
+					<option value="1">Lớp 1</option>
+					<option value="2">Lớp 2</option>
+					<option value="3">Lớp 3</option>
+					<option value="4">Lớp 4</option>
+					<option value="5">Lớp 5</option>
+					<option value="6">Lớp 6</option>
+				</select>
+				<ul class="list_score" id="list_top_event"></ul>
+				<script>
+					$(function(){
+						var loadList = function(class_id){
+							$.ajax({
+								url: '/su-kien/ranktop',
+								type: 'POST',
+								dataType: 'json',
+								data:{class_id: class_id, id: 30},
+								success:function(data){
+									if(data.error==0){
+										var html = '';
+										if(data.content && data.content.length>0){
+											for(var i=0, item; item=data.content[i];i++){
+												html+='<li> <div class="ld-grid-1"> <a title="" href="/tai-khoan/'+item.user_id+'"><img src="/avatar/'+item.user_id+'.jpg"></a> </div> <div class="ld-grid-2 ld-sapo"> <p class="title"><a href="/tai-khoan/'+item.user_id+'"><strong>'+item.fullname+'</strong></a></p> <p>Điểm: '+item.score+'</p><p>Thời gian: '+item.time+'</p></div></li>';
+											}
+										}
+										$('#list_top_event').html(html);
+									}
+								}
+							});
+						};
+						$('#ddl_top_event').change(function(){
+							var class_id = $(this).val();
+							loadList(class_id);
+						});
+						util.randomSelect('#ddl_top_event');
+						$('#ddl_top_event').trigger('change');
+					});
+				</script>
+			</div>
+			<!--End-->
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				{{> ./includes/ads-vertical-2}}
+			</div>
+		</div>
+	</div>
+</section>

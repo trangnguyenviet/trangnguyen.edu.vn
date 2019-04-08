@@ -1,0 +1,126 @@
+<div class="sidebar">
+	<!--<h2 class="heading">Top thí sinh điểm cao nhất</h2>-->
+	<div class="heading">
+         <h2 class="topclass">Top thí sinh lớp</h2>
+         <ul class="da-dots" style="float:right;">
+           <li class="number">1</li>
+           <li class="number">2</li>
+           <li class="number">3</li>
+           <li class="number da-dots-current">4</li>
+           <li class="number">5</li>
+          </ul>
+         </div>
+	<div class="main-boder">
+		<div class="box-us-dc">
+			<div class="user-1 active">
+				{{#top_class_1}}
+				<div class="user-grid-1"><img src="/avatar/no-avatar.jpg" alt="" /></div>
+				<div class="user-grid-2">
+					<div class="ld_title">
+						<h3><a title="" href="/tai-khoan/{{_id}}">{{name}}</a></h3>
+						<p> {{school_name}}</p>
+					</div>
+					<ul class="list-content">
+						<li>Lớp: {{class_id}} ({{class_name}})</li>
+						<li>Quận/Huyện: {{district_name}}</li>
+						<li>Tỉnh/Thành phố: {{province_name}}</li>
+					</ul>
+				</div>
+				{{/top_class_1}}
+			</div>
+			<div class="user-1">
+				{{#top_class_2}}
+				<div class="user-grid-1"><img src="/avatar/no-avatar.jpg" alt="" /></div>
+				<div class="user-grid-2">
+					<div class="ld_title">
+						<h3><a title="" href="/tai-khoan/{{_id}}">{{name}}</a></h3>
+						<p> {{school_name}}</p>
+					</div>
+					<ul class="list-content">
+						<li>Lớp: {{class_id}} ({{class_name}})</li>
+						<li>Quận/Huyện: {{district_name}}</li>
+						<li>Tỉnh/Thành phố: {{province_name}}</li>
+					</ul>
+				</div>
+				{{/top_class_2}}
+			</div>
+			<div class="user-1">
+				{{#top_class_3}}
+				<div class="user-grid-1"><img src="/avatar/no-avatar.jpg" alt="" /></div>
+				<div class="user-grid-2">
+					<div class="ld_title">
+						<h3><a title="" href="/tai-khoan/{{_id}}">{{name}}</a></h3>
+						<p> {{school_name}}</p>
+					</div>
+					<ul class="list-content">
+						<li>Lớp: {{class_id}} ({{class_name}})</li>
+						<li>Quận/Huyện: {{district_name}}</li>
+						<li>Tỉnh/Thành phố: {{province_name}}</li>
+					</ul>
+				</div>
+				{{/top_class_3}}
+			</div>
+			<div class="user-1">
+				{{#top_class_4}}
+				<div class="user-grid-1"><img src="/avatar/no-avatar.jpg" alt="" /></div>
+				<div class="user-grid-2">
+					<div class="ld_title">
+						<h3><a title="" href="/tai-khoan/{{_id}}">{{name}}</a></h3>
+						<p> {{school_name}}</p>
+					</div>
+					<ul class="list-content">
+						<li>Lớp: {{class_id}} ({{class_name}})</li>
+						<li>Quận/Huyện: {{district_name}}</li>
+						<li>Tỉnh/Thành phố: {{province_name}}</li>
+					</ul>
+				</div>
+				{{/top_class_4}}
+			</div>
+			<div class="user-1">
+				{{#top_class_5}}
+				<div class="user-grid-1"><img src="/avatar/no-avatar.jpg" alt="" /></div>
+				<div class="user-grid-2">
+					<div class="ld_title">
+						<h3><a title="" href="/tai-khoan/{{_id}}">{{name}}</a></h3>
+						<p> {{school_name}}</p>
+					</div>
+					<ul class="list-content">
+						<li>Lớp: {{class_id}} ({{class_name}})</li>
+						<li>Quận/Huyện: {{district_name}}</li>
+						<li>Tỉnh/Thành phố: {{province_name}}</li>
+					</ul>
+				</div>
+				{{/top_class_5}}
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		var index=0;
+		var tNext;
+		var setSlideActive=function(index){
+			var li=$('.da-dots li.number:eq('+ index +')');
+			li.parent().find('.da-dots-current').removeClass('da-dots-current');
+			li.addClass('da-dots-current');
+			$('.box-us-dc .user-1').hide('fast');
+			$('.box-us-dc .user-1:eq(' + index + ')').show('slow');
+			tNext=setTimeout(function(){
+				var length = $('.da-dots li.number').length;
+				if(index<length-1) index++;
+				else index = 0;
+				setSlideActive(index);
+			},10000);
+		}
+		$('.da-dots li.number').click(function(){
+			if(tNext){
+				clearTimeout(tNext);
+				tNext=null;
+			}
+			var li = $(this);
+			var index = li.index();
+			setSlideActive(index);
+		});
+		setSlideActive(index);
+	});
+</script>

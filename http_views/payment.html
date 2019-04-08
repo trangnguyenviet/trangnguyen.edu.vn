@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+	{{#user}}
+	<script src="/js/payment.js?v=1.5" type="text/javascript"></script>
+	<!--<script>
+		$(function(){
+			TN_POPUP.show('Hiện tại chưa nộp được học phí. Mời bạn quay lại sau 21h','Thông báo');
+			$('#bt_submit').hide();
+		});
+	</script>-->
+	{{/user}}
+</head>
+<body>
+{{> ./includes/header}}
+<section id="top_content">
+	<div class="container">
+		{{> ./includes/news-hot}}
+		<div class="box-competition" style="margin-bottom: 10px;">
+			<div class="col-md-6 col-sm-6 col-xs-12 box-user">
+				<form class="cd-form" method="post" onsubmit="return false;">
+					<div class="col-md-12 title-noptien">
+						<h2>Nộp học phí từ thẻ Trạng Nguyên<p style="font-size: .8em">(Chỉ sử dụng thẻ Trạng Nguyên)</p></h2>
+						<!--<h5 style="color:#474fa2">(Thẻ cào Viettel, Mobifone, Vinaphone)</h5>-->
+					</div>
+					{{#user}}
+					<div class="col-md-4 col-sm-4">ID:</div>
+					<div class="col-md-8 col-sm-8">
+						<p class="fieldset"> <input class="full-width has-nt has-border" disabled="disabled" type="text" value="{{_id}}"> </p>
+					</div>
+					<div class="col-md-4 col-sm-4">Tên đăng nhập:</div>
+					<div class="col-md-8 col-sm-8">
+						<p class="fieldset"> <input class="full-width has-nt has-border" disabled="disabled" type="text" value="{{username}}"> </p>
+					</div>
+					<div class="col-md-4 col-sm-4">Thời gian học đến:</div>
+					<div class="col-md-8 col-sm-8">
+						<p class="fieldset"> <input id="tb_expire_day" class="full-width has-nt has-border" disabled="disabled" value="{{vip_expire}}" type="text"> </p>
+					</div>
+					{{/user}}
+					{{^user}}
+					<div class="col-md-4 col-sm-4">ID:</div>
+					<div class="col-md-8 col-sm-8">
+						<p class="fieldset"> <input class="full-width has-nt has-border" disabled="disabled" type="text" value="(Bạn chưa đăng nhập)"> </p>
+					</div>
+					<div class="col-md-4 col-sm-4">Tên đăng nhập:</div>
+					<div class="col-md-8 col-sm-8">
+						<p class="fieldset"> <input class="full-width has-nt has-border" disabled="disabled" type="text" value="(Bạn chưa đăng nhập)"> </p>
+					</div>
+					<div class="col-md-4 col-sm-4">Thời gian học đến:</div>
+					<div class="col-md-8 col-sm-8">
+						<p class="fieldset"> <input class="full-width has-nt has-border" disabled="disabled" value="(Bạn chưa đăng nhập)" type="text"> </p>
+					</div>
+					{{/user}}
+					<div class="col-md-4 col-sm-4">Loại thẻ (<span class="txt-red"><strong>*</strong></span>)</div>
+					<div class="col-md-8 col-sm-8">
+						<p class="fieldselect"> <i class="fa fa-chevron-down"></i>
+							<select name="ddl_card_type" class="full-width has-padding has-border" id="ddl_card_type">
+								<option value="">Chọn loại thẻ</option>
+								<!--<option value="VIETTEL">Viettel</option>-->
+								<!--<option value="VNP">Vinaphone</option>-->
+								<!--<option value="VMS">Mobifone</option>-->
+								<option value="TNCARD">Trạng Nguyên</option>
+							</select>
+						</p>
+					</div>
+					<div class="col-md-4 col-sm-4">Mã thẻ (<span class="txt-red"><strong>*</strong></span>)</div>
+					<div class="col-md-8 col-sm-8">
+						<p class="fieldset"> <input class="full-width has-nt has-border" id="tb_card_number" type="text" placeholder="Mã thẻ nạp"> </p>
+					</div>
+					<div class="col-md-4 col-sm-4">Số serial(<span class="txt-red"><strong>*</strong></span>)</div>
+					<div class="col-md-8 col-sm-8">
+						<p class="fieldset"> <input class="full-width has-nt has-border" id="tb_card_serial" type="text" placeholder="Số serial"> </p>
+					</div>
+					<div class="col-md-4 col-sm-4">Mã bảo vệ(<span class="txt-red"> * </span>)</div>
+					<div class="col-md-8 col-sm-8">
+						<p class="fieldset">
+							<input style="width:136px; margin-top:2px;" class="full-width has-padding has-border" id="tb_captcha" type="text" placeholder="Nhập mã">
+							<img src="/captcha.png" alt="captcha" id="img_captcha" /> <img id="img_refresh" src="/skins/images/refresh_icon.gif" alt="" />
+						</p>
+					</div>
+					<div class="col-md-8 col-sm-4 col-md-offset-4">
+						<span id="lb_message_payment"></span>
+						<p class="fieldset">
+							{{#user}}
+							<input id="bt_submit" class="btn-w" type="submit" value="Nộp học phí"/>
+							{{/user}}
+							{{^user}}
+							<input class="must-login btn-w" type="submit" value="Nộp học phí" disabled/>
+							{{/user}}
+						</p>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12 box-huongdan">
+				<ul class="other-hd">
+					<h2>Hướng dẫn</h2>
+					<h3>Cần hỗ trợ, xin gọi tới: <span style="color:#ff0066; font-size: 1.3em"><a href="tel:0906228366">0906 228 366</a></span></h3>
+					<li>Nộp học phí 365.000đ nhận 365 ngày luyện tập <strong>6 MÔN HỌC</strong></li>
+					<li>Nộp học phí 500.000đ nhận 600 ngày luyện tập <strong>6 MÔN HỌC</strong></li>
+					<h3>Xem hướng dẫn <a href="/huong-dan/huong-dan-nop-hoc-phi-qua-ngan-hang-va-the-trang-nguyen.1260" target="_blank">nộp học phí qua thẻ Trạng Nguyên</a></h3>
+				</ul>
+				{{> ./includes/ads-auto}}
+			</div>
+		</div>
+		{{> ./includes/ads-vertical}}
+	</div>
+</section>
+{{> ./includes/footer}}
+{{> ./includes/ads-left-right}}
+{{> ./includes/modal-message}}
+{{> ./includes/google_analytics}}
+</body>
+</html>

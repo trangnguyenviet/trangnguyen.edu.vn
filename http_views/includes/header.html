@@ -1,0 +1,71 @@
+{{> ./includes/user-top}}
+<header>
+	<div class="navbar">
+		<div class="navbar-header">
+			<div class="container">
+				<div id="tn-dongdoi"><img src="/images/logo-nxbgdvn.png" alt="Nhà xuất bản Giáo Dục Việt Nam"/>&nbsp;&nbsp;<img src="/images/logo-HEID.png" alt="HEID"/>&nbsp;&nbsp;<a href="https://gioithieu.sachmem.vn/" target="_blank"><img src="/images/sachmem68x68.png" alt="sách mềm"/></a></div>
+				<button type="button" class="navbar-toggle btn responsive-menu collapsed" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">menu</span></button>
+				<a id="home-btn" href="/"><img src="/skins/images/logo.png" alt="logo Trạng Nguyên"></a>
+				<div class="col-mobile">
+					{{#user}}
+					<ul class="navuser">
+						<li class="dropdown"><a href="/tai-khoan" class="dropdown-toggle" data-toggle="dropdown"><img src="/avatar/no_avatar.jpg" alt=""/> xin chào: <strong>{{name}}</strong></a>
+						<ul class="dropdown-menu">
+							<li><a href="/tai-khoan"><i class="fa fa-user"></i> Thông tin tài khoản</a></li>
+							{{!<!--<li><a href="/tai-khoan/doi-mat-khau"><i class="fa fa-key"></i> Đổi mật khẩu</a></li>-->}}
+							<li><a class="confirm-logout" href="/user/logout"><i class="fa fa-sign-out"></i> Thoát</a></li>
+						</ul></li>
+					</ul>
+					{{/user}}
+					{{^user}}
+					<ul class="main-nav">
+						<li><a href="/dang-ky"><i class="fa fa-user"></i> Đăng ký</a>|</li>
+						<li><a class="cd-signin" href="javascript:void(0)"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+					</ul>
+					{{/user}}
+				</div>
+			</div>
+		</div>
+		<div class="navbar-collapse nav-menu collapse">
+			<div class="container">
+				<ul id="main-menu-left" class="sm sm-clean pull-left">
+					<li><a class="must-login" href="/tieng-viet">Vào thi</a></li>
+					<li><a href="/huong-dan">Hướng dẫn</a></li>
+					<li><a href="/bang-vang">Bảng vàng</a></li>
+					<li><a class="must-login" href="/tai-khoan">Tài khoản</a></li>
+				</ul>
+				<ul id="main-menu-right" class="sm sm-clean pull-right">
+					<li><a class="must-login" href="/su-kien/1000-diem-thang-7.25/">Sự kiện</a>
+					<!--<li><a href="/anh-hoc-sinh">Sự kiện</a>-->
+						<ul>
+							<li><a class="must-login" href="/su-kien/toi-yeu-viet-nam.27/">TÔI YÊU VIỆT NAM</a></li>
+							<li><a class="must-login" href="/su-kien/1000-diem-giang-sinh-2018.30/">1000 điểm giáng sinh 2018</a></li>
+							<li><a href="/huong-dan-giai-bai-tap">Hướng dẫn giải bài tập</a></li>
+							<li><a href="/dap-an-sach-trang-nguyen">Đáp án sách Trạng Nguyên</a></li>
+							<li><a class="must-login" href="/su-kien/do-chu-duoi-tu-bat-chu.16">Đố vui mỗi tuần</a></li>
+							<li><a href="/de-thi-loi-giai">Đề thi &amp; lời giải</a></li>
+							<li><a class="must-login" href="/su-kien/1000-diem-trang-nguyen.7">1000 điểm Trạng Nguyên</a></li>
+							<li><a class="must-login" href="/su-kien/dau-tri-trang-nguyen.5">Đấu trí Trạng Nguyên</a></li>
+						</ul>
+					</li>
+					<li><a target="_blank" href="https://hoc.trangnguyen.edu.vn">Luyện tập</a></li>
+					<!--<li><a href="/hoc-online-tieng-viet">Bài giảng</a>-->
+						<!--<ul>-->
+							<!--<li><a href="/hoc-online-tieng-viet">Tiếng Việt</a></li>-->
+							<!--<li><a href="/hoc-online-toan">Toán</a></li>-->
+							<!--<li><a href="/hoc-online-tieng-anh">Tiếng Anh</a></li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<li><a href="/video">Giải trí</a>
+						<ul>
+							<li><a href="/video">Video</a></li>
+							<li><a href="/truyen-cuoi">Truyện cười</a></li>
+							<li><a href="/bai-hoc-cuoc-song">Bài học cuộc sống</a></li>
+							<li><a href="/truyen-tho">Truyện &amp; Thơ</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>

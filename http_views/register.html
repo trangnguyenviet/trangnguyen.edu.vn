@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="row">
+				<div class="col-ldh-9">
+					<ul class="breadcrumbs">
+						<li><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+						<li><a href="/dang-ky">Đăng ký</a></li>
+					</ul>
+					<div role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel">Đăng ký</h4> </div>
+							<div class="modal-body ">
+								<div class="row">
+									<form class="cd-form">
+										<div class="col-md-3 col-sm-4">Họ và tên (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldset">
+												<i class="fa fa-user"></i>
+												<input class="full-width has-padding has-border" id="tb_fullname" type="text" placeholder="VD: Ngô Bảo Châu">
+												<span class="cd-error-message">Hãy nhập họ tên</span>
+												<span>Họ tên chính xác theo giấy khai sinh, sex không cho sửa đổi về sau. Không nhập được Tiếng Việt vui lòng sử dụng bảng mã <strong><a href="/huong-dan/huong-dan-nhap-dau-tieng-viet-chuan.1342" target="_blank">Unicode dựng sẵn.</a></strong></span>
+											</p>
+										</div>
+										<div class="col-md-3 col-sm-4">Tên đăng nhập (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldset"> <i class="fa fa-user"></i> <input class="full-width has-padding has-border" id="tb_username" type="text" placeholder="VD: ngobaochau"> <span class="cd-error-message">Hãy nhập tên đăng nhập</span> </p>
+										</div>
+										<div class="col-md-3 col-sm-4">Mật khẩu (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldset"> <i class="fa fa-key"></i> <input class="full-width has-padding has-border" id="tb_password" type="password" placeholder="Mật khẩu"> <a href="#0" class="hide-password">Show</a> <span class="cd-error-message">Hãy nhập mật khẩu</span> </p>
+										</div>
+										<div class="col-md-3 col-sm-4">Gõ lại mật khẩu (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldset"> <i class="fa fa-key"></i> <input class="full-width has-padding has-border" id="tb_repassword" type="password" placeholder="Gõ lại mật khẩu"> <a href="#0" class="hide-password">Show</a> <span class="cd-error-message">Hãy nhập</span> </p>
+										</div>
+										{{!<!--<div class="col-md-3 col-sm-4">Địa chỉ Email (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldset"> <i class="fa fa-envelope"></i> <input class="full-width has-padding has-border" id="tb_email" type="email" placeholder="Email"> <span class="cd-error-message">Hãy nhập email</span> </p>
+										</div>
+										<div class="col-md-3 col-sm-4">Điện thoại (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldset"> <i class="fa fa-phone"></i> <input class="full-width has-padding has-border" id="tb_mobile" type="tel" placeholder="Điện thoại"> <span class="cd-error-message">Hãy nhập số điện thoại</span> </p>
+										</div>-->}}
+										<div class="col-md-3 col-sm-4">Tỉnh/Thành phố (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldselect">
+												<i class="fa fa-chevron-down"></i>
+												<select name="linkType" class="full-width has-padding has-border" id="ddl_province">
+													<option value="0">Chọn Tỉnh/Thành phố</option>
+													{{#provinces}}
+														<option value="{{_id}}">{{name}}</option>
+													{{/provinces}}
+												</select>
+											</p>
+										</div>
+										<div class="col-md-3 col-sm-4">Quận/Huyện (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldselect">
+												<i class="fa fa-chevron-down"></i>
+												<select name="linkType" class="full-width has-padding has-border" id="ddl_district" disabled>
+													<option value="0">Chọn Quận/Huyện</option>
+												</select>
+											</p>
+										</div>
+										<div class="col-md-3 col-sm-4">Trường (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldselect">
+												<i class="fa fa-chevron-down"></i>
+												<select name="linkType" class="full-width has-padding has-border" id="ddl_school" disabled>
+														<option value="0">Chọn trường</option>
+												</select>
+												<span>Nếu tên trường chưa có trong danh sách, hãy gửi yêu cầu bổ sung về địa chỉ <a href="mailto:hotro@trangnguyen.edu.vn">hotro@trangnguyen.edu.vn</a></span>
+											</p>
+										</div>
+										<div class="col-md-3 col-sm-4">Khối (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldselect">
+												<i class="fa fa-chevron-down"></i>
+												<select name="linkType" class="full-width has-padding has-border" id="ddl_class">
+													<option value="0">Chọn lớp</option>
+													<option value="1">Lớp 1</option>
+													<option value="2">Lớp 2</option>
+													<option value="3">Lớp 3</option>
+													<option value="4">Lớp 4</option>
+													<option value="5">Lớp 5</option>
+												</select>
+												<span>Hệ thống tự lên lớp cho các con vào đầu năm học tiếp theo</span>
+											</p>
+										</div>
+										<div class="col-md-3 col-sm-4">Lớp:</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldselect">
+												<input id="tb_class_name" type="text" maxlength="4" placeholder="Tên lớp" class="full-width has-padding has-border">
+											</p>
+										</div>
+										<div class="col-md-3 col-sm-4">Ngày sinh (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldset">
+												<i class="fa fa-calendar"></i>
+												<input class="full-width has-padding has-border" id="tb_birthday" type="text" placeholder="DD/MM/YYYY">
+												<span class="cd-error-message"></span>
+											</p>
+										</div>
+										<!-- <div class="col-md-3 col-sm-4">Chọn Avatar (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldset"> <i class="fa fa-picture-o"></i> <input class="full-width has-padding has-border" type="text" placeholder=""> <span class="cd-error-message">Error message here!</span> </p>
+										</div> -->
+										<div class="col-md-3 col-sm-4">Mã xác nhận (<span class="txt-red"> * </span>)</div>
+										<div class="col-md-9 col-sm-8">
+											<p class="fieldset">
+												<img src="/captcha.png" alt="captcha" id="img_captcha"/>
+												<input style="width:200px; margin-top:2px;" class="full-width has-padding has-border" id="tb_captcha" type="text" maxlength="6" placeholder="Nhập mã xác nhận"/>
+												<span class="cd-error-message">Hãy nhập mã xác nhận</span>
+											</p>
+										</div>
+										<div class="col-md-12">
+											<p class="fieldset"> <input type="checkbox" id="cb_accept"> <label for="cb_accept">Tôi đồng ý với các <a href="/huong-dan/dieu-khoan-tham-gia-thi-trang-nguyen-tieng-viet.1343" target="_blank">Điều khoản</a> của Trạng Nguyên</label> </p>
+										</div>
+										<div class="col-md-12">
+											<p class="fieldset" id="lb_message_register" style="color: #f00; font-size: 1em;"></p>
+										</div>
+										<div class="col-md-12">
+											<p class="fieldset"> <input class="btn-edit" type="submit" id="bt_save" value="Đăng ký"> <input class="btn-edit" type="reset" value="Xóa"> </p>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-ldh-3 right-sidebar">
+					{{> ./includes/right-top}}
+					{{> ./includes/ads-300x250-r}}
+				</div>
+			</div>
+			<script src="/js/moment.min.js" type="text/javascript"></script>
+			<script src="/js/register.min.js?v=1.0.8" type="text/javascript"></script>
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/loading}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

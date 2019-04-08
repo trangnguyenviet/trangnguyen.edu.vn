@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="row">
+				<div class="col-ldh-12">
+					<ul class="breadcrumbs">
+						<li><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+						<li><a href="#">Tra cứu danh sách thi Hội</a></li>
+					</ul>
+					<div class="bg-BXH">
+						<div class="title_table">Tra cứu danh sách thi Hội</div>
+						<form action="" onsubmit="return false;" style="padding:10px 0">
+							<label>Tỉnh/Tp: &nbsp;</label>
+							<select id="ddl_province">
+								{{#provinces}}
+								<option value="{{_id}}">{{name}}</option>
+								{{/provinces}}
+							</select>
+							<button id="bt_search">Tra cứu</button>
+						</form>
+						<table id="div_content" class="table-bv" border="0" cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th width="5%">STT</th>
+									<th width="10%">ID</th>
+									<th width="15%">Họ và tên</th>
+									<th width="10%">Ngày sinh</th>
+									<th width="10%">Lớp</th>
+									<th width="17%">Trường</th>
+									<th width="18%">Quận/Huyện</th>
+									<th width="15%">Tỉnh/TP</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr><td colspan="8">không có dữ liệu</td></tr>
+							</tbody>
+						</table>
+						<div id="div_page"></div>
+						<script type="text/javascript">
+							$(function(){
+								$('#bt_search').click(function(){
+									var province = util.parseInt($('#ddl_province').val());
+									if(province>0){
+										$.ajax({
+											url: window.location.href,
+											type: 'POST',
+											dataType: "json",
+											data: {province: province},
+											success:function(data){
+												if(data.error==0){
+													if(data.users){
+														var users = data.users;
+														var html='';
+														for(var i = 0, user; user = users[i]; i++){
+															html+='<tr>';
+															html+='<td>'+(i+1)+'</td>';
+															html+='<td>'+user._id+'</td>';
+															html+='<td>'+user.name+'</td>';
+															html+='<td>'+(user.birthday?util.dateShow(new Date(user.birthday)):'')+'</td>';
+															html+='<td>'+user.class_id+' ('+user.class_name+')</td>';
+															html+='<td>'+user.school_name+'</td>';
+															html+='<td>'+user.district_name+'</td>';
+															html+='<td>'+user.province_name+'</td>';
+															html+='</tr>';
+														}
+														$('#div_content tbody').html(html);
+														goToByScroll('#div_content');
+													}
+													else{
+														TN_POPUP.show(data.message);
+													}
+												}
+												else{
+													TN_POPUP.show(data.message);
+												}
+											}
+										});
+									}
+									else{
+										TN_POPUP.show('Hãy chọn tỉnh');
+									}
+								});
+							});
+						</script>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="text-align: center">
+				{{!> ./includes/ads-vertical}}
+				<a href="https://hoc.trangnguyen.edu.vn"><img style="width: 98%" src="/images/thi-cap-tinh.jpg"></a>
+			</div>
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/loading}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

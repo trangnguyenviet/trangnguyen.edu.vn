@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+	<script src="/js/home.js?v=1.0.0"></script>
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<div class="row">
+				<div class="col-ldh-9">
+					<div class="mod-newsflash-adv posts">
+						<div class="row">
+							<article class="col-md-5 col-sm-5 item item_num0">
+								<div class="ico-thi"><a class="blink-red must-login" href="/tieng-viet">Vào thi<br> Trạng Nguyên</a></div>
+								<div class="bgboy"></div>
+								{{> ./includes/top-dang-ky}}
+								{{> ./includes/count-member}}
+							</article>
+							<div class="col-md-7 col-sm-7">
+								<div class="sidebar">
+									<h2 class="heading">
+										<!--<a href="javascript:void(0)" onclick="ShowHideTab('contenttab1');" class="tabs-selected-tab" id="headtab1">Tin Giáo dục</a> |
+										<a href="javascript:void(0)" id="headtab2" onclick="ShowHideTab('contenttab2');"> Tin từ Ban tổ chức</a>-->
+										<a href="/tin-giao-duc">Tin Giáo dục</a> |
+										<a href="/tin-tu-ban-to-chuc"> Tin từ Ban tổ chức</a>
+									</h2>
+									<div class="main-boder">
+										<ul class="list-news" id="contenttab1">
+										{{#list_news_giaoduc}}
+											<li><span><a href="/tin-giao-duc/{{name_ko_dau}}.{{_id}}" title="{{name}}">{{name}}</a></span></li>
+										{{/list_news_giaoduc}}
+										</ul>
+										<ul class="list-news" id="contenttab2" style="display:none;">
+										{{#list_news_bantochuc}}
+											<li><span><a href="/tin-tu-ban-to-chuc/{{name_ko_dau}}.{{_id}}" title="{{name}}">{{name}}</a></span></li>
+										{{/list_news_bantochuc}}
+										</ul>
+									</div>
+								</div>
+								{{> ./includes/top-height-score}}
+							</div>
+						</div>
+					</div>
+					<div class="ad_728">
+						{{!> ./includes/ads-vertical}}
+					</div>
+				</div>
+				<div class="col-ldh-3 right-sidebar">
+					<div class="bgboy_cuoingua"></div>
+					{{> ./includes/right-top}}
+				</div>
+			</div>
+		</div>
+	</section>
+	{{> ./includes/ads-left-right}}
+	{{!> ./includes/rank-score}}
+	{{> ./includes/luyen-tap}}
+	{{> ./includes/footer}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/loading}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+	<script src="/js/profiler.js?v=1.0.2" type="text/javascript"></script>
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<div class="box-competition">
+			{{#userinfo}}
+				<div class="col-md-5 col-sm-5 col-xs-12 box-user">
+					<div class="pd-tk">
+						<div class="col-md-6 col-sm-12 col-xs-12 center"> <img class="cicle" src="/avatar/no_avatar.jpg" alt="" />
+							{{#is_self}}
+							{{#active}}
+							<p><a class="btn btn-red" href="https://hoc.trangnguyen.edu.vn/ca-nhan/">Sửa thông tin</a></p>
+							{{/active}}
+							{{^active}}
+							<p>Hãy soạn tin nhắn với nội dung: <strong style="color: #E10000">TNV {{_id}}</strong> gửi đến <strong style="color: #E10000">8130</strong></p>
+							<p style="color: #e40869; font-weight: 600;">Để kích hoạt tài khoản</p>
+							{{/active}}
+							{{/is_self}}
+						</div>
+						<div class="col-md-6 col-sm-12 col-xs-12 user-txt">
+							<p><strong>ID: <span id="user_id">{{_id}}</span></strong></p>
+							<p>Họ tên: {{name}}</p>
+							<p>Ngày sinh: <span id="span_birth">{{birthday}}</span></p>
+							{{#is_self}}
+							<p>Tỉnh/Thành phố: {{province_name}}</p>
+							<p>Quận/Huyện: {{district_name}}</p>
+							<p>Trường: {{school_name}}</p>
+							<p>Lớp: {{class_id}}</p>
+							{{/is_self}}
+						</div>
+					</div>
+				</div>
+				<!--End-->
+				<div class="col-md-2 col-sm-2 col-xs-12">
+					<div class="box-note">
+						<div class="title-larg-header">
+							<h1>Thông tin<br>cá<br>nhân</h1>
+						</div>
+					</div>
+				</div>
+				{{#is_self}}
+				<div class="col-md-5 col-sm-5 col-xs-12 box-huongdan">
+					<div class="box-tgonluyen">
+						<div class="bg-hoa"> Thời gian ôn luyện:<br>
+						{{#vip_expire}}
+						<strong><script>document.write(util.date2String4(new Date('{{vip_expire}}')));</script></strong>
+						{{/vip_expire}}
+						{{^vip_expire}}
+						<strong>(chưa nộp học<br/> phí luyện tập)</strong>
+						{{/vip_expire}}
+						</div>
+						<!--<p><a class="btn btn-red" id="bt_pay" href="/nop-hoc-phi">Nộp học phí luyện tập</a></p>-->
+						<p><a class="btn btn-red" href="/nop-hoc-phi-ngan-hang">Nộp học phí luyện tập</a></p>
+						<!--<p><a class="btn btn-red" href="/huong-dan/huong-dan-nop-hoc-phi-qua-ngan-hang-va-the-trang-nguyen.1260">Nộp học phí luyện tập</a></p>-->
+					</div>
+				</div>
+				{{/is_self}}
+				{{^is_self}}
+				<div class="col-md-5 col-sm-5 col-xs-12 box-huongdan">
+				<div class="col-sm-12 col-xs-12 user-txt pd35">
+					<p>Lớp: {{class_id}}</p>
+					<p>Tỉnh/Thành phố: {{province_name}}</p>
+					<p>Quận/Huyện: {{district_name}}</p>
+					<p>Trường: {{school_name}}</p>
+				</div>
+				</div>
+				{{/is_self}}
+
+				<div class="box-thongke" id="score_tiengviet">
+					<div class="row">
+						<div class="col-md-8 col-sm-8 col-sx-12">
+							<div class="block_tk">
+								<div class="top_header bg-r-tk"> <span class="base_huyhieu"></span>
+									<h2>Điểm thi tiếng việt</h2>
+									<span class="base_ico-tn"></span>
+								</div>
+								<div class="tn-block-content">
+									<table class="tn-table">
+										<thead>
+											<tr>
+												<th>Vòng thi</th>
+												<th>Lần thi</th>
+												<th>Điểm</th>
+												<th>Thời gian</th>
+												<th>Ngày thi</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="5">loading...</td>
+											</tr>
+										</tbody>
+									</table>
+									<div class="tn-result-test">
+										<p>Xếp hạng Quốc gia: <span class="tn-text-strong rank-country">...</span></p>
+										<p>Xếp hạng tỉnh/TP: <span class="tn-text-strong rank-local">...</span></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4 col-sx-12">
+							{{> ./includes/ads-admicro-300x250}}
+							{{> ./includes/ads-google-300x250}}
+							{{> ./includes/ads-auto}}
+						</div>
+					</div>
+				</div>
+			{{/userinfo}}
+			{{> ./includes/ads-vertical}}
+			</div>
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

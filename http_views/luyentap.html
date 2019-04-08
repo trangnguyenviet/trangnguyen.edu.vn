@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="box-competition">
+				<div class="col-md-4 col-sm-4 col-xs-12 box-user">
+					{{#user}}
+					<div class="pd-user">
+						<div class="col-md-5 col-sm-6 col-xs-6 center">
+							<img class="cicle" src="/avatar/no_avatar.jpg" alt=""/>
+							<p><a class="btn btn-red" href="#" data-toggle="modal" data-target="#logout">Thoát</a></p>
+						</div>
+						<div class="col-md-7 col-sm-6 col-xs-6 user-txt">
+							<p><strong>{{name}}</strong></p>
+							<p>ID: {{_id}}</p>
+							<p>Lớp: {{class_id}}</p>
+							<p>{{school_name}}</p>
+						</div>
+						<div class="col-md-12 clear-fix">
+							<div class="user-content">
+								<p>Môn thi: <strong>Thi tiếng việt</strong></p>
+								<p>Lớp: <strong>{{class_id}}</strong></p>
+								{{#exam_info}}
+								<p>Vòng thi hệ thống: <strong>{{current_round}}</strong></p>
+								{{/exam_info}}
+								<p>Bạn đã thi qua vòng: <strong>{{user_current_round}}</strong></p>
+							</div>
+						</div>
+					</div>
+					{{/user}}
+					{{^user}}
+					chưa đăng nhập
+					{{/user}}
+				</div><!--End-->
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<div class="box-note">
+						<div class="title-larg-header"><h1>Tiếng Việt</h1></div>
+						<div class="block_study bg-while">
+							<div class="top_header bg_red">
+								<span class="base_huyhieu"></span>
+								<h2>Thi<br>tiếng việt</h2>
+								<span class="base_ico-tn"></span>
+							</div>
+							<ul class="list_study">
+								{{#exam_info}}
+								<script>
+									var open_round = {{current_round}};
+									var max_round = {{max_round}};
+									for(var i=1;i<=max_round;i++){
+										if(i<=open_round)
+											document.write('<li><a class="must-login" href="/tieng-viet/vong-' + i + '" title="Vòng ' + i + '">Vòng ' + i + '</a></li>');
+										else
+											document.write('<li class="hidethi"><a class="round-not-open" href="#chua-mo-vong" title="Vòng ' + i + '">Vòng ' + i + '</a></li>');
+									}
+								</script>
+								{{/exam_info}}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12 box-huongdan">
+					<ul class="other-hd">
+							<h2>Hướng dẫn</h2>
+							<li><span><a href="#" title="">Hướng dẫn thi trạng nguyên tiếng việt</a></span></li>
+							<li><span><a href="#" title="">Hướng dẫn làm bài thi</a></span></li>
+							<li><span><a href="#" title="">Hướng dẫn thi trạng nguyên tiếng việt</a></span></li>
+							<li><span><a href="#" title="">Hướng dẫn làm bài thi</a></span></li>
+						</ul>
+						<div class="ad_300">
+							{{> ./includes/ads-300x250}}
+						</div>
+				</div>
+			</div>
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/footer}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

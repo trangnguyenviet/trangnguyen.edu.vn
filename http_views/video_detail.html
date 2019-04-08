@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<div class="row">
+				<div class="col-ldh-9">
+					<ul class="breadcrumbs">
+						<li><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+						<li><a href="/video">Video clip</a></li>
+					</ul>
+					{{!> ./includes/fb-root}}
+					<div class="bg-news">
+						<article class="thumbnail-news-view">
+						{{#info}}
+							<div class="videoWrapper">
+								<script>
+									var current_id={{_id}};
+									var querystring = Urllib.GetQueryString();
+									var autoplay=(querystring['play']=='true')?1:0;
+									var url = '{{{url}}}';
+									var video_id;
+									var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+									var match = url.match(regExp);
+									if (match && match[2].length == 11) {
+										video_id = match[2];
+									}
+									if (video_id) {
+										document.write('<iframe width="290" height="163" src="https://www.youtube-nocookie.com/embed/' + video_id + '?rel=0&amp;controls=1&amp;showinfo=1&amp;autoplay='+autoplay+'" frameborder="0" allowfullscreen></iframe>');
+									}
+								</script>
+							</div>
+							<div>
+								{{> ./includes/ads-vertical-content}}
+							</div>
+							<div class="block_timer_share">
+								<div class="block_timer pull-left">
+									<span class="tags" style="margin-bottom: 8px;display: inline-block;"><strong><i class="fa fa-tags"></i> Tags:</strong>
+									{{#tags}}
+										<a href="#{{.}}">{{.}}</a>
+									{{/tags}}
+									</span>
+								</div>
+								<div class="clear">
+									<div class="fb-like" ndata-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+								</div>
+							</div>
+							<div class="post_content">
+								<h3>{{name}}</h3>
+								<p>{{{content}}}</p>
+							</div>
+							{{> ./includes/fb-comment}}
+						{{/info}}
+						</article>
+					</div>
+
+					<div class="bg-news" style="padding:0" id="list_other">
+						<ul class="game"></ul>
+						<div class="page"></div>
+					</div>
+					<script>
+						$(()=>{
+							var querystring = Urllib.GetQueryString();
+							var page_index = util.parseInt(querystring['trang']);
+							LoadList(page_index);
+						});
+						var LoadList = (page_index,bScroll)=>{
+							if(page_index>0) window.history.pushState({trang:page_index},'','?trang='+page_index);
+							else window.history.pushState({trang:page_index},'','?play');
+							$.ajax({
+								url: '/video/list-other?trang='+page_index,
+								type: 'POST',
+								dataType: "json",
+								success:function(data){
+									if(data.error==0){
+										if(data.content){
+											console.log(data);
+											var content = data.content;
+											var page_index = data.page_index;
+											var page_size = data.page_size;
+											var total_rows = data.total_rows;
+											var html='';
+											for(var i=0;i<content.length;i++){
+												var item = content[i];
+												html+='<li class="col-md-3 col-sm-6 col-xs-6"><a href="/video/'+item.name_ko_dau+'.' + item._id + '?play=true&amp;trang='+page_index+'"><img src="'+item.thumb+'" alt="'+item.name+'"></a><p>'+item.name+'</p></li>';
+											}
+											$('#list_other .game').html(html);
+											$('#list_other .page').html(util.GenPageJs(total_rows,page_size,page_index,'page pageA pageA06','current',5,'GoPage'));
+											if(bScroll) goToByScroll('#list_other');
+										}
+									}
+								}
+							});
+						};
+						var GoPage = (page_index)=>{
+							LoadList(page_index,true);
+						}
+					</script>
+				</div>
+				<div class="col-ldh-3 right-sidebar">
+					{{> ./includes/right-top}}
+					<div class="sidebar">
+						<ul class="breadcrumbs"><li><a href="/game">Trò chơi</a></li></ul>
+						<div class="main-bodergame">
+							<ul class="video-new" id="div_game_other"></ul>
+							<script>
+								$(()=>{
+									$.ajax({
+										url: '/game/random-list',
+										type: 'POST',
+										dataType: "json",
+										success:function(data){
+											if(data.error==0){
+												if(data.content){
+													var content = data.content;
+													var html='';
+													for(var i=0;i<content.length;i++){
+														var item = content[i];
+														html+='<li> <div class="one cover-outer-align"> <span class="icon-circle-play"> <a href="/game/'+item.name_ko_dau+'.'+item._id+'" title="'+item.name+'"> <i class="fa fa-play"></i> </a> </span> <a href="/game/'+item.name_ko_dau+'.'+item._id+'" title="'+item.name+'"> <img alt="'+item.name+'" src="'+item.thumb+'" data-pin-nopin="true"> </a> </div> <div class="two"> <h4><a href="/game/'+item.name_ko_dau+'.'+item._id+'" title="'+item.name+'">'+item.name+'</a></h4> </div> </li>';
+													}
+													$('#div_game_other').html(html);
+												}
+											}
+										}
+									});
+								});
+							</script>
+						</div>
+					</div>
+					<div class="sidebar">
+						<ul class="breadcrumbs"><li><a href="/truyen-cuoi">Truyện cười</a></li></ul>
+						<div class="main-bodergame">
+							<ul class="video-new" id="div_jokes_other"></ul>
+							<script>
+								$(()=>{
+									$.ajax({
+										url: '/truyen-cuoi/random-list',
+										type: 'POST',
+										dataType: "json",
+										success:function(data){
+											if(data.error==0){
+												if(data.content){
+													var content = data.content;
+													var html='';
+													for(var i=0;i<content.length;i++){
+														var item = content[i];
+														html+='<li> <div class="one cover-outer-align"> <span class="icon-circle-play"> <a href="/truyen-cuoi/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'"> <i class="fa fa-play"></i> </a> </span> <a href="/truyen-cuoi/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'"> <img alt="'+item.name+'" src="'+item.thumb+'" data-pin-nopin="true"> </a> </div> <div class="two"> <h4><a href="/truyen-cuoi/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'">'+item.name+'</a></h4> </div> </li>';
+													}
+													$('#div_jokes_other').html(html);
+												}
+											}
+										}
+									});
+								});
+							</script>
+						</div>
+					</div>
+					<div class="ad_300">
+						{{!> ./includes/ads-300x250}}
+						{{> ./includes/ads-300x250-r}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

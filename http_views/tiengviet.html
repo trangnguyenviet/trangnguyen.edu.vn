@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+	<style type="text/css">
+	.box-note .title-larg-header{display: none}
+	.box-user{background:none;}
+	.box-user .pd-user{margin-top: 20px}
+	ul.other-hd{margin-top: 20px;margin-bottom: 10px;}
+	.box-huongdan{background: none}
+	.bg-while{margin-top: 25px;}
+	</style>
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="box-competition">
+				<div class="col-md-4 col-sm-4 col-xs-12 box-user">
+					<div class="pd-user" style="margin-bottom: 6px;overflow: hidden;">
+						{{#user}}
+						<div class="col-md-5 col-sm-6 col-xs-6 center">
+							<img class="cicle" src="/avatar/no_avatar.jpg" style="margin-bottom:0" alt="{{name}}"/>
+							<!--<p><a class="btn btn-red confirm-logout" style="padding:2px 10px;" href="/user/logout">Thoát</a></p>-->
+						</div>
+						<div class="col-md-7 col-sm-6 col-xs-6 user-txt">
+							<p><strong>{{name}}</strong></p>
+							<p>ID: {{_id}}</p>
+							<p>Lớp: {{class_id}}</p>
+							<p>{{school_name}}</p>
+						</div>
+						<div class="col-md-12 clear-fix">
+							<div class="user-content">
+								<p>Môn thi: <strong>{{subject}}</strong></p>
+								{{#exam_info}}
+								<p>Vòng thi hệ thống: <strong>{{current_round}}</strong></p>
+								{{/exam_info}}
+							</div>
+						</div>
+						{{/user}}
+						{{^user}}
+						<div class="col-md-5 col-sm-6 col-xs-6 center">
+							<img class="cicle" src="/skins/images/logo.png" alt=""/>
+						</div>
+						<div class="col-md-7 col-sm-6 col-xs-6 user-txt">
+							<p><strong>Bạn chưa đăng nhập</strong></p>
+							<p>Hãy nhấn để</p>
+							<p><a class="btn btn-red" style="padding:2px 10px;" href="javascript:void('dang-nhap')" onclick="USER.show_modal(this)">Đăng nhập</a></p>
+						</div>
+						{{/user}}
+					</div>
+					{{> ./includes/ads-admicro-300x250}}
+				</div><!--End-->
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<div class="box-note">
+						<div class="title-larg-header"><h1>{{{page_name}}}</h1></div>
+						<div class="block_study bg-while">
+							<ul class="list_study">
+								{{#exam_info}}
+								<script>
+									var open_round = {{current_round}};
+									var max_round = {{max_round}};
+									var baseUrl = '{{baseUrl}}';
+									for(var i=1;i<=max_round;i++){
+										if(i<=open_round)
+											document.write('<li><a class="must-login round-open" data-round="'+ i +'" href="'+baseUrl+'/vong-' + i + '" title="Vòng ' + i + '">Vòng ' + i + '</a></li>');
+										else
+											document.write('<li class="hidethi"><a class="round-not-open" href="#chua-mo-vong" title="Vòng ' + i + '">Vòng ' + i + '</a></li>');
+									}
+									$(function(){
+										$('a.round-open').each(function(){
+											var link = $(this);
+											var round = util.parseInt(link.attr('data-round'));
+											if([17].indexOf(round)>=0){
+												link.click(function(event){
+													event.preventDefault();
+													TN_POPUP.show('Hãy Luyện Tập trước khi Thi để kết quả tốt hơn!',null,null,null,[
+														{
+															caption:'Luyện tập',
+															callback:function(){
+																window.location.href='https://hoc.trangnguyen.edu.vn';
+															}
+														},{
+															caption:'Lúc khác',
+															callback:function(){
+																window.location.href= link.attr('href');
+															}
+														}
+													]);
+												});
+											}
+										});
+									});
+								</script>
+								{{/exam_info}}
+							</ul>
+						</div>
+						{{#user}}
+						{{^is_free}}
+						<div class="thititep">
+							<p style="margin-bottom:20px;">Bạn đã thi qua vòng: {{user_current_round}}</p>
+							<script>
+								var user_current_round = util.parseInt('{{user_current_round}}');
+								if(user_current_round<max_round){
+									document.write('<p><a class="btn btn-red" href="'+baseUrl+'/vong-'+(user_current_round+1)+'">Thi tiếp vòng '+ (user_current_round+1) +'</a></p>');
+								}
+								else{
+									document.write('<p><a class="btn btn-red" href="/">Về trang chủ</a></p>');
+								}
+
+							</script>
+						</div>
+						{{/is_free}}
+						{{/user}}
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12 box-huongdan">
+					<ul class="other-hd">
+						<!--gioi thieu-->
+						<h2>Hướng dẫn</h2>
+						{{#list_news}}
+						<li><span><a href="{{path_news}}/{{name_ko_dau}}.{{_id}}" title="{{name}}">{{name}}</a></span></li>
+						{{/list_news}}
+					</ul>
+					<div class="ad_300" style="margin: 10px 0">
+						{{> ./includes/ads-google-300x250}}
+					</div>
+				</div>
+			</div>
+			<!--end content-->
+			{{> ./includes/ads-vertical}}
+		</div>
+	</section>
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/footer}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

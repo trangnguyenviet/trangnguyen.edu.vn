@@ -1,0 +1,61 @@
+#game-orientation {
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0) url(../images/orientation.jpg) no-repeat center;
+    z-index: 999;
+    display: none;
+}
+
+#phaser-game canvas {
+    margin: auto !important;
+}
+
+#answer-txt {
+    position: absolute;
+    z-index: 999;
+    color: #000000;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+    background: transparent;
+    line-height: 30px;
+    padding: 0 10px;
+    border: 0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    #answer-txt {
+        height: 30px;
+        line-height: 28px;
+        width: 170px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #answer-txt {
+        height: 25px;
+        line-height: 20px;
+        width: 120px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #answer-txt {
+        height: 20px;
+        line-height: 18px;
+        width: 80px;
+        font-size: 14px;
+    }
+}

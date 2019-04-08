@@ -1,0 +1,17 @@
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<textarea id="txt_input"></textarea>
+<textarea id="txt_output"></textarea>
+<button id="submit">Encode</button>
+
+<script type="text/javascript">
+	$(function(){
+		$('#submit').click(function(){
+			var input = $('#txt_input').val();
+			var output='';
+			for(var i=0,charcode;charcode = input.charCodeAt(i);i++){
+				output+='%'+charcode.toString(16);
+			}
+			$('#txt_output').val('eval(decodeURIComponent(\"' + output + '\"));');
+		});
+	});
+</script>

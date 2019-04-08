@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<!--content-->
+			<div class="row">
+				<div class="col-ldh-9">
+					{{#list_category}}
+					<div class="game-root" data-id="{{_id}}">
+						<ul class="breadcrumbs"><li><a href="javascript:void(0)">{{name}}</a></li></ul>
+						<div class="bg-news" style="padding:0">
+							<ul class="game"></ul>
+							<div style="padding-left:10px;">
+								<div class="page"></div>
+							</div>
+						</div>
+					</div>
+					{{/list_category}}
+					{{> ./includes/ads-vertical-content}}
+				</div>
+				<script>
+					$(()=>{
+						var game_root = $('.game-root');
+						game_root.is((index,game_div)=>{
+							var div = $(game_div);
+							var category_id = div.attr('data-id');
+							LoadList(category_id,0);
+						});
+					});
+					var LoadList = (category_id,page_index,bScroll)=>{
+						$.ajax({
+							url: '/game/list/' + category_id + '?trang='+page_index,
+							type: 'POST',
+							dataType: "json",
+							success:function(data){
+								if(data.error==0){
+									if(data.content){
+										var content = data.content;
+										var page_index = data.page_index;
+										var page_size = data.page_size;
+										var total_rows = data.total_rows;
+										var html='';
+										for(var i=0;i<content.length;i++){
+											var item = content[i];
+											html+='<li class="col-md-3 col-sm-6 col-xs-6"><a href="/game/'+item.name_ko_dau+'.' + item._id + '"><img src="'+item.thumb+'"><span>'+item.name+'</span></a></li>';
+										}
+										$('.game-root[data-id="'+data.category_id+'"] .game').html(html);
+										$('.game-root[data-id="'+data.category_id+'"] .page').html(util.GenPageJs(total_rows,page_size,page_index,'page pageA pageA06','current',5,'GoPage',category_id));
+										if(bScroll) goToByScroll('.game-root[data-id="'+data.category_id+'"]')
+									}
+								}
+							}
+						});
+					};
+					var GoPage = (page_index,category_id)=>{
+						LoadList(category_id,page_index,true);
+					}
+				</script>
+				<div class="col-ldh-3 right-sidebar">
+					<div class="sidebar">
+						<ul class="breadcrumbs"><li><a href="/video">Video Clip</a></li></ul>
+						<div class="main-bodergame">
+							<ul class="video-new" id="div_video_other"></ul>
+							<script>
+								$(()=>{
+									$.ajax({
+										url: '/video/random-list',
+										type: 'POST',
+										dataType: "json",
+										success:function(data){
+											if(data.error==0){
+												if(data.content){
+													var content = data.content;
+													var html='';
+													for(var i=0;i<content.length;i++){
+														var item = content[i];
+														html+='<li> <div class="one cover-outer-align"> <span class="icon-circle-play"> <a href="/video/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'"> <i class="fa fa-play"></i> </a> </span> <a href="/video/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'"> <img alt="'+item.name+'" src="'+item.thumb+'" data-pin-nopin="true"> </a> </div> <div class="two"> <h4><a href="/video/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'">'+item.name+'</a></h4> </div> </li>';
+													}
+													$('#div_video_other').html(html);
+												}
+											}
+										}
+									});
+								});
+							</script>
+						</div>
+					</div>
+					<div class="ad_300">
+						{{> ./includes/ads-300x250}}
+					</div>
+					<div class="sidebar">
+						<ul class="breadcrumbs"><li><a href="/truyen-cuoi">Truyện cười</a></li></ul>
+						<div class="main-bodergame">
+							<ul class="video-new" id="div_jokes_other"></ul>
+							<script>
+								$(()=>{
+									$.ajax({
+										url: '/truyen-cuoi/random-list',
+										type: 'POST',
+										dataType: "json",
+										success:function(data){
+											if(data.error==0){
+												if(data.content){
+													var content = data.content;
+													var html='';
+													for(var i=0;i<content.length;i++){
+														var item = content[i];
+														html+='<li> <div class="one cover-outer-align"> <span class="icon-circle-play"> <a href="/truyen-cuoi/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'"> <i class="fa fa-play"></i> </a> </span> <a href="/truyen-cuoi/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'"> <img alt="'+item.name+'" src="'+item.thumb+'" data-pin-nopin="true"> </a> </div> <div class="two"> <h4><a href="/truyen-cuoi/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'">'+item.name+'</a></h4> </div> </li>';
+													}
+													$('#div_jokes_other').html(html);
+												}
+											}
+										}
+									});
+								});
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	{{> ./includes/head}}
+</head>
+<body>
+	{{> ./includes/header}}
+	<section id="top_content">
+		<div class="container">
+			{{> ./includes/news-hot}}
+			<div class="row">
+				<div class="col-ldh-9">
+					<div class="game-root">
+						<ul class="breadcrumbs"><li><a href="/truyen-tho">Truyện thơ</a></li></ul>
+						<div class="bg-news" style="padding:0">
+							<ul class="game"></ul>
+							<div style="padding-left:10px;">
+								<div class="page"></div>
+							</div>
+						</div>
+					</div>
+					{{> ./includes/ads-vertical-content}}
+				</div>
+				<script>
+					var querystring = Urllib.GetQueryString();
+					$(()=>{
+						var page_index = querystring['trang'];
+						LoadList(page_index);
+					});
+					var LoadList = (page_index,bScroll)=>{
+						$.ajax({
+							url: '/truyen-tho/list?trang='+page_index,
+							type: 'POST',
+							dataType: "json",
+							success:function(data){
+								if(data.error==0){
+									if(data.content){
+										var content = data.content;
+										var page_index = data.page_index;
+										var page_size = data.page_size;
+										var total_rows = data.total_rows;
+										var html='';
+										for(var i=0;i<content.length;i++){
+											var item = content[i];
+											html+='<li class="col-md-3 col-sm-6 col-xs-6"><a href="/truyen-tho/'+item.name_ko_dau+'.' + item._id + '"><img src="'+item.thumb+'"><span>'+item.name+'</span></a></li>';
+										}
+										$('.game').html(html);
+										$('.page').html(util.GenPageJs(total_rows,page_size,page_index,'page pageA pageA06','current',5,'GoPage'));
+										if(bScroll) goToByScroll('.game-root')
+									}
+								}
+							}
+						});
+					};
+					var GoPage = (page_index)=>{
+						LoadList(page_index,true);
+					}
+				</script>
+				<div class="col-ldh-3 right-sidebar">
+					{{!> ./includes/right-top}}
+					<div class="sidebar">
+						<ul class="breadcrumbs"><li><a href="/anh-hoc-sinh">Ảnh học sinh</a></li></ul>
+						<div class="main-bodergame">
+							<ul class="video-new" id="div_game_other"></ul>
+							<script>
+								$(()=>{
+									$.ajax({
+										url: '/anh-hoc-sinh/random-list',
+										type: 'POST',
+										dataType: "json",
+										success:function(data){
+											if(data.error==0){
+												if(data.content){
+													var content = data.content;
+													var html='';
+													for(var i=0;i<content.length;i++){
+														var item = content[i];
+														html+='<li> <div class="one cover-outer-align"> <span class="icon-circle-play"> <a href="/anh-hoc-sinh/'+item.name_ko_dau+'.'+item._id+'" title="'+item.name+'"> <i class="fa fa-play"></i> </a> </span> <a href="/anh-hoc-sinh/'+item.name_ko_dau+'.'+item._id+'" title="'+item.name+'"> <img alt="'+item.name+'" src="'+item.thumb+'" data-pin-nopin="true"> </a> </div> <div class="two"> <h4><a href="/anh-hoc-sinh/'+item.name_ko_dau+'.'+item._id+'" title="'+item.name+'">'+item.name+'</a></h4> </div> </li>';
+													}
+													$('#div_game_other').html(html);
+												}
+											}
+										}
+									});
+								});
+							</script>
+						</div>
+					</div>
+					{{> ./includes/ads-300x250}}
+					<div class="sidebar">
+						<ul class="breadcrumbs"><li><a href="/bai-hoc-cuoc-song">Bài học cuộc sống</a></li></ul>
+						<div class="main-bodergame">
+							<ul class="video-new" id="div_video_other"></ul>
+							<script>
+								$(()=>{
+									$.ajax({
+										url: '/bai-hoc-cuoc-song/random-list',
+										type: 'POST',
+										dataType: "json",
+										success:function(data){
+											if(data.error==0){
+												if(data.content){
+													var content = data.content;
+													var html='';
+													for(var i=0;i<content.length;i++){
+														var item = content[i];
+														html+='<li> <div class="one cover-outer-align"> <span class="icon-circle-play"> <a href="/bai-hoc-cuoc-song/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'"> <i class="fa fa-play"></i> </a> </span> <a href="/bai-hoc-cuoc-song/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'"> <img alt="'+item.name+'" src="'+item.thumb+'" data-pin-nopin="true"> </a> </div> <div class="two"> <h4><a href="/bai-hoc-cuoc-song/'+item.name_ko_dau+'.'+item._id+'?play=true" title="'+item.name+'">'+item.name+'</a></h4> </div> </li>';
+													}
+													$('#div_video_other').html(html);
+												}
+											}
+										}
+									});
+								});
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--end content-->
+		</div>
+	</section>
+	{{> ./includes/footer}}
+	{{> ./includes/ads-left-right}}
+	{{> ./includes/modal-message}}
+	{{> ./includes/google_analytics}}
+</body>
+</html>

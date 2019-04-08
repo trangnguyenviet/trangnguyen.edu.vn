@@ -1,0 +1,224 @@
+.slide-news{ margin-top:45px; position:relative}
+.slide-cmmusic{ margin-top:60px; position:relative}
+
+
+#recommended-item-carousel .carousel-inner .item {
+  padding-left: 0;
+}
+
+.recommended-item-control {
+  position: absolute;
+  top: 20%; z-index:1000
+}
+.recommended-item-control.right {
+  right:0;
+  left:auto;/*
+  background-repeat:repeat-x;*/
+}
+.recommended-item-control i {
+  background: none repeat scroll 0 0 #fff;
+  color: #000;
+  font-size: 40px;
+  padding: 4px 10px;
+}
+
+.recommended-item-control i:hover {
+  color:#B10002
+}
+
+
+.our-listing {
+    position: relative;
+    z-index: 98;
+    left: 0;
+    top: -60px;
+}
+
+@media screen and (min-width: 240px) {
+    .our-listing {
+        margin-top: 10px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .our-listing {
+        margin-top: 15px;
+    }
+}
+
+ .list-item {
+    overflow: hidden;
+    margin: 0 15px;  
+}
+
+.list-item .list-thumb {
+    overflow: hidden;
+}
+
+.list-item .list-thumb .title {
+    background-color: #B70003; 
+    height: 46px; text-align: center;
+}
+
+.list-item .list-thumb .title h4 {
+    color: #fff;
+    line-height: 46px; 
+    font-weight: 600;
+}
+
+.list-item .list-thumb img {
+    width: 100%;
+}
+
+.list-item .list-content p.summary {
+    color: #333;
+    font-weight: 500;
+    font-size: 14px; line-height:1.6em;
+    margin: 15px 0 5px 0;
+}
+
+.list-item .list-content span {
+    color: #e54747;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin: 0 0 15px 0;
+}
+
+.list-item .list-content a.price-btn {
+    display: block;
+    background-color: #fff;
+    color: #CD0003;
+    padding: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 15px;
+}
+
+.list-item .list-content a.price-btn:hover {
+    background-color: #CD0003; color:#fff
+}
+
+ 
+.owl-carousel .owl-wrapper:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+/* display none until init */
+.owl-carousel {
+	display: none;
+	position: relative;
+	width: 100%;
+	-ms-touch-action: pan-y;
+}
+.owl-carousel .owl-wrapper {
+	display: none;
+	position: relative;
+	-webkit-transform: translate3d(0px, 0px, 0px);
+}
+.owl-carousel .owl-wrapper-outer.autoHeight {
+	-webkit-transition: height 500ms ease-in-out;
+	-moz-transition: height 500ms ease-in-out;
+	-ms-transition: height 500ms ease-in-out;
+	-o-transition: height 500ms ease-in-out;
+	transition: height 500ms ease-in-out;
+}
+.owl-carousel .owl-item {
+	float: left;
+}
+.owl-controls .owl-page, .owl-controls .owl-buttons div {
+	cursor: pointer;
+}
+.owl-controls {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+/* mouse grab icon */
+.grabbing {
+	cursor: url(grabbing.png) 8 8, move;
+}
+/* fix */
+.owl-carousel .owl-wrapper, .owl-carousel .owl-item {
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+}
+.owl-theme .owl-controls {
+	text-align: center;
+	height: 1px
+}
+/* Styling Next and Prev buttons */
+
+/* preloading images */
+.owl-item.loading {
+	min-height: 150px;
+	background: url(AjaxLoader.gif) no-repeat center center
+}
+.owl-carousel .owl-wrapper:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+/* display none until init */
+
+.owl-carousel .owl-wrapper {
+	display: none;
+	position: relative;
+	-webkit-transform: translate3d(0px, 0px, 0px);
+}
+.owl-carousel .owl-wrapper-outer {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+.owl-carousel .owl-wrapper-outer.autoHeight {
+	-webkit-transition: height 500ms ease-in-out;
+	-moz-transition: height 500ms ease-in-out;
+	-ms-transition: height 500ms ease-in-out;
+	-o-transition: height 500ms ease-in-out;
+	transition: height 500ms ease-in-out;
+}
+.owl-carousel .owl-item {
+	float: left;
+}
+.owl-controls .owl-page, .owl-controls .owl-buttons div {
+	cursor: pointer;
+}
+.owl-controls {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+/* mouse grab icon */
+.grabbing {
+	cursor: url(grabbing.png) 8 8, move;
+}
+/* fix */
+.owl-carousel .owl-wrapper, .owl-carousel .owl-item {
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+}
+ 
+  

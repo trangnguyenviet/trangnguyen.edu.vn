@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    {{> ./includes/head}}
+</head>
+<body>
+{{> ./includes/header}}
+<section id="top_content">
+    <div class="container">
+        {{> ./includes/news-hot}}
+        <!--content-->
+        <div class="row">
+            <div class="col-ldh-12">
+                <ul class="breadcrumbs">
+                    <li><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+                    <li><a href="#">Danh sách thi huyện</a></li>
+                </ul>
+                <div class="bg-BXH">
+                    <div class="title_table">Tra cứu danh sách học sinh thi huyện</div>
+                    <form action="" onsubmit="return false;" style="padding:10px 0">
+                        <label>Tỉnh/thành phố: &nbsp;</label>
+                        <select id="ddl_province">
+                            <option value="0">Chọn Tỉnh/Thành phố</option>
+                            {{#provinces}}
+                            <option value="{{_id}}">{{name}}</option>
+                            {{/provinces}}
+                        </select>
+                        <label>Quận/h: &nbsp;</label>
+                        <select id="ddl_district" disabled>
+                            <option value="0">Chọn Quận/Huyện</option>
+                        </select>
+                        <label>Lớp: &nbsp;</label>
+                        <select id="ddl_class">
+                            <option value="0">Tất cả</option>
+                            <option value="1">lớp 1</option>
+                            <option value="2">lớp 2</option>
+                            <option value="3">lớp 3</option>
+                            <option value="4">lớp 4</option>
+                            <option value="5">lớp 5</option>
+                        </select>
+                        <button id="bt_search">Tra cứu</button>
+                    </form>
+                    <table id="div_content" class="table-bv" border="0" cellpadding="0" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th width="6%">STT</th>
+                            <th width="10%">ID</th>
+                            <th width="25%">Họ và tên</th>
+                            <th width="15%">Ngày sinh</th>
+                            <th width="14%">Lớp</th>
+                            <th width="10%">Trường</th>
+                            <th width="10%">Quận/Huyện</th>
+                            <th width="10%">Tỉnh/TP</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td colspan="11">không có dữ liệu</td></tr>
+                        </tbody>
+                    </table>
+                    <div id="div_page"></div>
+                    <script type="text/javascript">
+                        $(function(){
+                            var ddl_province = $('#ddl_province');
+                            var ddl_district = $('#ddl_district');
+                            var tLoaddistrict;
+
+                            ddl_province.change(function(){
+                                var province_id = parseInt($(this).val());
+                                if(tLoaddistrict) clearTimeout(tLoaddistrict);
+                                tLoaddistrict = setTimeout(function(){
+                                    ddl_district.prop('disabled',true).html('<option value="0">Chọn quận/huyện</option>');
+                                    if(province_id>0){
+                                        $.ajax({
+                                            url: "/district/api/list/" + province_id,
+                                            dataType: "json",
+                                            //data:{action:'list',id:province_id},
+                                            beforeSend: function( xhr ) {
+                                                spinner.show();
+                                            },
+                                            success:function(data){
+                                                if(data.error==0){
+                                                    if(data.content){
+                                                        var html='';
+                                                        $.each(data.content,function(i,val){
+                                                            html+='<option value="' + val._id + '">' + val.name + '</option>'
+                                                        });
+                                                        ddl_district.append(html).prop('disabled', false);
+                                                    }
+                                                }
+                                                else{
+                                                    ShowMessError(data.message);
+                                                }
+                                            }
+                                        });
+                                    }
+                                },1000);
+                            });
+                            $('#bt_search').click(function(){
+                                var province_id = ddl_province.val();
+                                var district_id = ddl_district.val();
+                                if(province_id > 0){
+                                    $.ajax({
+                                        url: window.location.href,
+                                        type: 'POST',
+                                        dataType: "json",
+                                        data: {province_id, district_id, class_id: $('#ddl_class').val()},
+                                        success:function(data){
+                                            if(data.error==0){
+                                                if(data.users){
+                                                    var users = data.users;
+                                                    var html='';
+                                                    for(var i = 0, user_info; user_info = users[i]; i++){
+                                                        if(user_info){
+                                                            html+='<tr>';
+                                                            html+='<td>'+(i+1)+'</td>';
+                                                            html+='<td>'+user_info._id+'</td>';
+                                                            html+='<td>'+user_info.name+'</td>';
+                                                            html+='<td>'+(user_info.birthday?util.dateShow(new Date(user_info.birthday)):'')+'</td>';
+                                                            html+='<td>'+user_info.class_id+' ('+user_info.class_name+')</td>';
+                                                            html+='<td>'+user_info.school_name+'</td>';
+                                                            html+='<td>'+user_info.district_name+'</td>';
+                                                            html+='<td>'+user_info.province_name+'</td>';
+                                                            html+='</tr>';
+                                                        }
+                                                    }
+                                                    $('#div_content tbody').html(html);
+                                                    goToByScroll('#div_content');
+                                                }
+                                                else{
+                                                    TN_POPUP.show(data.message);
+                                                }
+                                            }
+                                            else{
+                                                TN_POPUP.show(data.message);
+                                            }
+                                        }
+                                    });
+                                }
+                                else{
+                                    TN_POPUP.show('Hãy chọn đủ thông tin');
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="row" style="text-align: center">
+                {{!> ./includes/ads-vertical}}
+                <a href="https://hoc.trangnguyen.edu.vn"><img style="width: 98%" src="/images/thi-cap-tinh.jpg"></a>
+            </div>
+        </div>
+    </div>
+</section>
+{{> ./includes/footer}}
+{{> ./includes/ads-left-right}}
+{{> ./includes/modal-message}}
+{{> ./includes/loading}}
+{{> ./includes/google_analytics}}
+</body>
+</html>
