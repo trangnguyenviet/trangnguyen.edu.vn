@@ -73,7 +73,7 @@ DbUtil.prototype.LoadListUser = function(callback_result){
 			logger.error(err,count);
 			if(callback_result) callback_result(err, false);
 		} else {
-			self.redis.set(config.redis_key.count_member, count + 336850 + 766378 + 4932);
+			self.redis.set(config.redis_key.count_member, count);
 			// if(count){
 			// 	let page_size = 20000;
 			// 	let page_count = Math.floor(count / page_size);
