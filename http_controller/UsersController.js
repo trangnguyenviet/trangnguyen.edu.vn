@@ -195,7 +195,7 @@ router.post('/register', function(req, res) {
 	// let geo = geoip.lookup(ip);
 	//if(geo) logger.debug('[register] create new User: %s | ip: %s (%s - %s)',req.body.username,ip,geo.city,geo.country);
 	//else logger.debug('[register] create new User: %s | ip: %s',req.body.username,ip);
-	logger.debug('[register] create new User: %s | ip: %s',req.body.username,ip);
+	// logger.debug('[register] create new User: %s | ip: %s',req.body.username,ip);
 
 	let response = {};
 	try{

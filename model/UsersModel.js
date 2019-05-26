@@ -52,7 +52,7 @@ const schema = new Schema({
 
 	//last_login: Date,
 	//last_login_ip: String,
-	active: {type: Boolean, default: false},
+	active: {type: Boolean, default: true},
 	// active_email: {type: Boolean, default: false},
 	// active_phone: {type: Boolean, default: false},
 
