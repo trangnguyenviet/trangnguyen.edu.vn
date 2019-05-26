@@ -1,5 +1,5 @@
 'use strict';
-let logger = require('tracer').colorConsole(),
+const logger = require('tracer').colorConsole(),
 	http = require('http'),
 	// cookieParser = require('cookie-parser'),
 	cluster = require('cluster'),
@@ -16,23 +16,23 @@ let logger = require('tracer').colorConsole(),
 	ConnectMgrs = require('./ConnectMgr');
 
 //********************************mongodb*************************************//
-let mongoose = require ("mongoose");
+const mongoose = require ("mongoose");
 mongoose.connect(config.mongodb.connect);
 mongoose.set('debug', config.mongodb.debug);
 
 //********************************redis*************************************//
-let redis = require("redis");
-let redis_client = redis.createClient(config.redis.port,config.redis.server,config.redis.options);
+const redis = require("redis");
+const redis_client = redis.createClient(config.redis);
 
 //********************************letiable global*************************************//
-let num_processes = os.cpus().length;
+const num_processes = os.cpus().length;
 
 //is_user_play_exam_<user_id>
-let redis_key = config.redis_key;
+const redis_key = config.redis_key;
 // let key_is_user_play_exam = redis_key.is_user_play_exam;
 
-let DbUtil = new DbUtils(redis_client);
-let ConnectMgr = new ConnectMgrs(redis_client);
+const DbUtil = new DbUtils(redis_client);
+const ConnectMgr = new ConnectMgrs(redis_client);
 
 //********************************cluster*************************************//
 if (cluster.isMaster) {
